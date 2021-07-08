@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Security;
 using SFML.System;
@@ -109,7 +110,7 @@ namespace SFML.Audio
         ////////////////////////////////////////////////////////////
         /// <summary>
         /// Buffer containing the sound data to play through the sound.
-        /// 
+        ///
         /// It is important to note that the sound buffer is not copied,
         /// thus the SoundBuffer instance must remain alive as long
         /// as it is attached to the sound.
@@ -150,7 +151,7 @@ namespace SFML.Audio
         ////////////////////////////////////////////////////////////
         /// <summary>
         /// Pitch of the sound.
-        /// 
+        ///
         /// The pitch represents the perceived fundamental frequency
         /// of a sound; thus you can make a sound more acute or grave
         /// by changing its pitch. A side effect of changing the pitch
@@ -167,7 +168,7 @@ namespace SFML.Audio
         ////////////////////////////////////////////////////////////
         /// <summary>
         /// Volume of the sound.
-        /// 
+        ///
         /// The volume is a value between 0 (mute) and 100 (full volume).
         /// The default value for the volume is 100.
         /// </summary>
@@ -181,7 +182,7 @@ namespace SFML.Audio
         ////////////////////////////////////////////////////////////
         /// <summary>
         /// Current playing position of the sound.
-        /// 
+        ///
         /// The playing position can be changed when the sound is
         /// either paused or playing.
         /// </summary>
@@ -201,7 +202,7 @@ namespace SFML.Audio
         /// The default position of a sound is (0, 0, 0).
         /// </summary>
         ////////////////////////////////////////////////////////////
-        public Vector3f Position
+        public Vector3 Position
         {
             get { return sfSound_getPosition(CPointer); }
             set { sfSound_setPosition(CPointer, value); }
@@ -337,7 +338,7 @@ namespace SFML.Audio
         static extern void sfSound_setVolume(IntPtr Sound, float Volume);
 
         [DllImport(CSFML.audio, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern void sfSound_setPosition(IntPtr Sound, Vector3f position);
+        static extern void sfSound_setPosition(IntPtr Sound, Vector3 position);
 
         [DllImport(CSFML.audio, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
         static extern void sfSound_setRelativeToListener(IntPtr Sound, bool Relative);
@@ -358,7 +359,7 @@ namespace SFML.Audio
         static extern float sfSound_getVolume(IntPtr Sound);
 
         [DllImport(CSFML.audio, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern Vector3f sfSound_getPosition(IntPtr Sound);
+        static extern Vector3 sfSound_getPosition(IntPtr Sound);
 
         [DllImport(CSFML.audio, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
         static extern bool sfSound_isRelativeToListener(IntPtr Sound);

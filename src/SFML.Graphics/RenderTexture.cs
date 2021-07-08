@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Security;
 using SFML.System;
@@ -96,7 +97,7 @@ namespace SFML.Graphics
         /// Size of the rendering region of the render texture
         /// </summary>
         ////////////////////////////////////////////////////////////
-        public Vector2u Size
+        public Vector2 Size
         {
             get { return sfRenderTexture_getSize(CPointer); }
         }
@@ -158,7 +159,7 @@ namespace SFML.Graphics
         /// <param name="point">Pixel to convert</param>
         /// <returns>The converted point, in "world" coordinates</returns>
         ////////////////////////////////////////////////////////////
-        public Vector2f MapPixelToCoords(Vector2i point)
+        public Vector2 MapPixelToCoords(Vector2 point)
         {
             return MapPixelToCoords(point, GetView());
         }
@@ -189,7 +190,7 @@ namespace SFML.Graphics
         /// <param name="view">The view to use for converting the point</param>
         /// <returns>The converted point, in "world" coordinates</returns>
         ////////////////////////////////////////////////////////////
-        public Vector2f MapPixelToCoords(Vector2i point, View view)
+        public Vector2 MapPixelToCoords(Vector2 point, View view)
         {
             return sfRenderTexture_mapPixelToCoords(CPointer, point, view != null ? view.CPointer : IntPtr.Zero);
         }
@@ -207,7 +208,7 @@ namespace SFML.Graphics
         /// <param name="point">Point to convert</param>
         /// <returns>The converted point, in target coordinates (pixels)</returns>
         ////////////////////////////////////////////////////////////
-        public Vector2i MapCoordsToPixel(Vector2f point)
+        public Vector2 MapCoordsToPixel(Vector2 point)
         {
             return MapCoordsToPixel(point, GetView());
         }
@@ -234,7 +235,7 @@ namespace SFML.Graphics
         /// <param name="view">The view to use for converting the point</param>
         /// <returns>The converted point, in target coordinates (pixels)</returns>
         ////////////////////////////////////////////////////////////
-        public Vector2i MapCoordsToPixel(Vector2f point, View view)
+        public Vector2 MapCoordsToPixel(Vector2 point, View view)
         {
             return sfRenderTexture_mapCoordsToPixel(CPointer, point, view != null ? view.CPointer : IntPtr.Zero);
         }
@@ -539,7 +540,7 @@ namespace SFML.Graphics
         static extern void sfRenderTexture_clear(IntPtr CPointer, Color ClearColor);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern Vector2u sfRenderTexture_getSize(IntPtr CPointer);
+        static extern Vector2 sfRenderTexture_getSize(IntPtr CPointer);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
         static extern bool sfRenderTexture_setActive(IntPtr CPointer, bool Active);
@@ -566,10 +567,10 @@ namespace SFML.Graphics
         static extern IntRect sfRenderTexture_getViewport(IntPtr CPointer, IntPtr TargetView);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern Vector2i sfRenderTexture_mapCoordsToPixel(IntPtr CPointer, Vector2f point, IntPtr View);
+        static extern Vector2 sfRenderTexture_mapCoordsToPixel(IntPtr CPointer, Vector2 point, IntPtr View);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern Vector2f sfRenderTexture_mapPixelToCoords(IntPtr CPointer, Vector2i point, IntPtr View);
+        static extern Vector2 sfRenderTexture_mapPixelToCoords(IntPtr CPointer, Vector2 point, IntPtr View);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
         static extern IntPtr sfRenderTexture_getTexture(IntPtr CPointer);

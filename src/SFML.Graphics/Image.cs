@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Security;
 using SFML.System;
@@ -290,8 +291,8 @@ namespace SFML.Graphics
         {
             get
             {
-                Vector2u size = Size;
-                byte[] PixelsPtr = new byte[size.X * size.Y * 4];
+                Vector2 size = Size;
+                byte[] PixelsPtr = new byte[(int)size.X * (int)size.Y * 4];
                 Marshal.Copy(sfImage_getPixelsPtr(CPointer), PixelsPtr, 0, PixelsPtr.Length);
                 return PixelsPtr;
             }
@@ -302,7 +303,7 @@ namespace SFML.Graphics
         /// Size of the image, in pixels
         /// </summary>
         ////////////////////////////////////////////////////////////
-        public Vector2u Size => sfImage_getSize(CPointer);
+        public Vector2 Size => sfImage_getSize(CPointer);
 
         ////////////////////////////////////////////////////////////
         /// <summary>
@@ -392,7 +393,7 @@ namespace SFML.Graphics
         static extern IntPtr sfImage_getPixelsPtr(IntPtr CPointer);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern Vector2u sfImage_getSize(IntPtr CPointer);
+        static extern Vector2 sfImage_getSize(IntPtr CPointer);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
         static extern uint sfImage_flipHorizontally(IntPtr CPointer);

@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Security;
 using SFML.System;
@@ -179,7 +180,7 @@ namespace SFML.Audio
         ////////////////////////////////////////////////////////////
         /// <summary>
         /// Pitch of the music.
-        /// 
+        ///
         /// The pitch represents the perceived fundamental frequency
         /// of a sound; thus you can make a sound more acute or grave
         /// by changing its pitch. A side effect of changing the pitch
@@ -196,7 +197,7 @@ namespace SFML.Audio
         ////////////////////////////////////////////////////////////
         /// <summary>
         /// Volume of the music.
-        /// 
+        ///
         /// The volume is a value between 0 (mute) and 100 (full volume).
         /// The default value for the volume is 100.
         /// </summary>
@@ -216,7 +217,7 @@ namespace SFML.Audio
         /// The default position of a sound is (0, 0, 0).
         /// </summary>
         ////////////////////////////////////////////////////////////
-        public Vector3f Position
+        public Vector3 Position
         {
             get { return sfMusic_getPosition(CPointer); }
             set { sfMusic_setPosition(CPointer, value); }
@@ -280,7 +281,7 @@ namespace SFML.Audio
         ////////////////////////////////////////////////////////////
         /// <summary>
         /// Current playing position of the music.
-        /// 
+        ///
         /// The playing position can be changed when the music is
         /// either paused or playing.
         /// </summary>
@@ -294,11 +295,11 @@ namespace SFML.Audio
         ////////////////////////////////////////////////////////////
         /// <summary>
         /// Current loop points of the music.
-        /// 
+        ///
         /// Since setting performs some adjustments on the
         /// provided values and rounds them to internal samples, getting this
         /// value later is not guaranteed to return the same times passed
-        /// into it. However, it is guaranteed to return times that will map 
+        /// into it. However, it is guaranteed to return times that will map
         /// to the valid internal samples of this Music if they are later
         /// set again.
         /// </summary>
@@ -355,7 +356,7 @@ namespace SFML.Audio
         private StreamAdaptor myStream = null;
 
         /// <summary>
-        /// Structure defining a Time range. 
+        /// Structure defining a Time range.
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
         public struct TimeSpan
@@ -414,7 +415,7 @@ namespace SFML.Audio
         static extern void sfMusic_setVolume(IntPtr Music, float Volume);
 
         [DllImport(CSFML.audio, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern void sfMusic_setPosition(IntPtr Music, Vector3f position);
+        static extern void sfMusic_setPosition(IntPtr Music, Vector3 position);
 
         [DllImport(CSFML.audio, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
         static extern void sfMusic_setRelativeToListener(IntPtr Music, bool Relative);
@@ -438,7 +439,7 @@ namespace SFML.Audio
         static extern float sfMusic_getVolume(IntPtr Music);
 
         [DllImport(CSFML.audio, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern Vector3f sfMusic_getPosition(IntPtr Music);
+        static extern Vector3 sfMusic_getPosition(IntPtr Music);
 
         [DllImport(CSFML.audio, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
         static extern bool sfMusic_isRelativeToListener(IntPtr Music);

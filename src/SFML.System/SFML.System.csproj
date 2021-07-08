@@ -2,9 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <SFMLModule>System</SFMLModule>
+    <LangVersion>default</LangVersion>
   </PropertyGroup>
-
-  <Import Project="..\..\SFML.Module.props" />
 
 </Project>

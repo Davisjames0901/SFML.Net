@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 using SFML.System;
 
 namespace SFML.Graphics
@@ -53,7 +54,7 @@ namespace SFML.Graphics
         /// Position of the object
         /// </summary>
         ////////////////////////////////////////////////////////////
-        public Vector2f Position
+        public Vector2 Position
         {
             get
             {
@@ -91,7 +92,7 @@ namespace SFML.Graphics
         /// Scale of the object
         /// </summary>
         ////////////////////////////////////////////////////////////
-        public Vector2f Scale
+        public Vector2 Scale
         {
             get
             {
@@ -114,7 +115,7 @@ namespace SFML.Graphics
         /// transformations (position, scale, rotation).
         /// </summary>
         ////////////////////////////////////////////////////////////
-        public Vector2f Origin
+        public Vector2 Origin
         {
             get
             {
@@ -200,10 +201,10 @@ namespace SFML.Graphics
             // or not the final object (if used as a base for a drawable class)
         }
 
-        private Vector2f myOrigin = new Vector2f(0, 0);
-        private Vector2f myPosition = new Vector2f(0, 0);
+        private Vector2 myOrigin = new Vector2(0, 0);
+        private Vector2 myPosition = new Vector2(0, 0);
         private float myRotation = 0;
-        private Vector2f myScale = new Vector2f(1, 1);
+        private Vector2 myScale = new Vector2(1, 1);
         private Transform myTransform;
         private Transform myInverseTransform;
         private bool myTransformNeedUpdate = true;

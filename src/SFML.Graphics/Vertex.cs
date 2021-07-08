@@ -1,3 +1,4 @@
+using System.Numerics;
 using System.Runtime.InteropServices;
 using SFML.System;
 
@@ -18,8 +19,8 @@ namespace SFML.Graphics
         /// </summary>
         /// <param name="position">Vertex position</param>
         ////////////////////////////////////////////////////////////
-        public Vertex(Vector2f position) :
-            this(position, Color.White, new Vector2f(0, 0))
+        public Vertex(Vector2 position) :
+            this(position, Color.White, new Vector2(0, 0))
         {
         }
 
@@ -31,8 +32,8 @@ namespace SFML.Graphics
         /// <param name="position">Vertex position</param>
         /// <param name="color">Vertex color</param>
         ////////////////////////////////////////////////////////////
-        public Vertex(Vector2f position, Color color) :
-            this(position, color, new Vector2f(0, 0))
+        public Vertex(Vector2 position, Color color) :
+            this(position, color, new Vector2(0, 0))
         {
         }
 
@@ -44,7 +45,7 @@ namespace SFML.Graphics
         /// <param name="position">Vertex position</param>
         /// <param name="texCoords">Vertex texture coordinates</param>
         ////////////////////////////////////////////////////////////
-        public Vertex(Vector2f position, Vector2f texCoords) :
+        public Vertex(Vector2 position, Vector2 texCoords) :
             this(position, Color.White, texCoords)
         {
         }
@@ -57,7 +58,7 @@ namespace SFML.Graphics
         /// <param name="color">Vertex color</param>
         /// <param name="texCoords">Vertex texture coordinates</param>
         ////////////////////////////////////////////////////////////
-        public Vertex(Vector2f position, Color color, Vector2f texCoords)
+        public Vertex(Vector2 position, Color color, Vector2 texCoords)
         {
             Position = position;
             Color = color;
@@ -79,12 +80,12 @@ namespace SFML.Graphics
         }
 
         /// <summary>2D position of the vertex</summary>
-        public Vector2f Position;
+        public Vector2 Position;
 
         /// <summary>Color of the vertex</summary>
         public Color Color;
 
         /// <summary>Coordinates of the texture's pixel to map to the vertex</summary>
-        public Vector2f TexCoords;
+        public Vector2 TexCoords;
     }
 }

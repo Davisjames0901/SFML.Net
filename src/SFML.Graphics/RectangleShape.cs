@@ -1,3 +1,4 @@
+using System.Numerics;
 using SFML.System;
 
 namespace SFML.Graphics
@@ -15,7 +16,7 @@ namespace SFML.Graphics
         /// </summary>
         ////////////////////////////////////////////////////////////
         public RectangleShape() :
-            this(new Vector2f(0, 0))
+            this(new Vector2(0, 0))
         {
         }
 
@@ -25,7 +26,7 @@ namespace SFML.Graphics
         /// </summary>
         /// <param name="size">Size of the shape</param>
         ////////////////////////////////////////////////////////////
-        public RectangleShape(Vector2f size)
+        public RectangleShape(Vector2 size)
         {
             Size = size;
         }
@@ -47,7 +48,7 @@ namespace SFML.Graphics
         /// The size of the rectangle
         /// </summary>
         ////////////////////////////////////////////////////////////
-        public Vector2f Size
+        public Vector2 Size
         {
             get { return mySize; }
             set { mySize = value; Update(); }
@@ -74,22 +75,22 @@ namespace SFML.Graphics
         /// <param name="index">Index of the point to get, in range [0 .. 3]</param>
         /// <returns>index-th point of the shape</returns>
         ////////////////////////////////////////////////////////////
-        public override Vector2f GetPoint(uint index)
+        public override Vector2 GetPoint(uint index)
         {
             switch (index)
             {
                 default:
                 case 0:
-                    return new Vector2f(0, 0);
+                    return new Vector2(0, 0);
                 case 1:
-                    return new Vector2f(mySize.X, 0);
+                    return new Vector2(mySize.X, 0);
                 case 2:
-                    return new Vector2f(mySize.X, mySize.Y);
+                    return new Vector2(mySize.X, mySize.Y);
                 case 3:
-                    return new Vector2f(0, mySize.Y);
+                    return new Vector2(0, mySize.Y);
             }
         }
 
-        private Vector2f mySize;
+        private Vector2 mySize;
     }
 }

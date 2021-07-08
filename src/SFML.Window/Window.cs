@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
@@ -163,7 +164,7 @@ namespace SFML.Window
         /// Position of the window
         /// </summary>
         ////////////////////////////////////////////////////////////
-        public virtual Vector2i Position
+        public virtual Vector2 Position
         {
             get { return sfWindow_getPosition(CPointer); }
             set { sfWindow_setPosition(CPointer, value); }
@@ -174,7 +175,7 @@ namespace SFML.Window
         /// Size of the rendering region of the window
         /// </summary>
         ////////////////////////////////////////////////////////////
-        public virtual Vector2u Size
+        public virtual Vector2 Size
         {
             get { return sfWindow_getSize(CPointer); }
             set { sfWindow_setSize(CPointer, value); }
@@ -246,7 +247,7 @@ namespace SFML.Window
         /// Grab or release the mouse cursor
         /// </summary>
         /// <param name="grabbed">True to grab, false to release</param>
-        /// 
+        ///
         /// <remarks>
         /// If set, grabs the mouse cursor inside this window's client
         /// area so it may no longer be moved outside its bounds.
@@ -463,7 +464,7 @@ namespace SFML.Window
         /// </summary>
         /// <returns>Relative mouse position</returns>
         ////////////////////////////////////////////////////////////
-        protected internal virtual Vector2i InternalGetMousePosition()
+        protected internal virtual Vector2 InternalGetMousePosition()
         {
             return sfMouse_getPosition(CPointer);
         }
@@ -476,7 +477,7 @@ namespace SFML.Window
         /// </summary>
         /// <param name="position">Relative mouse position</param>
         ////////////////////////////////////////////////////////////
-        protected internal virtual void InternalSetMousePosition(Vector2i position)
+        protected internal virtual void InternalSetMousePosition(Vector2 position)
         {
             sfMouse_setPosition(position, CPointer);
         }
@@ -490,7 +491,7 @@ namespace SFML.Window
         /// <param name="Finger">Finger index</param>
         /// <returns>Relative touch position</returns>
         ////////////////////////////////////////////////////////////
-        protected internal virtual Vector2i InternalGetTouchPosition(uint Finger)
+        protected internal virtual Vector2 InternalGetTouchPosition(uint Finger)
         {
             return sfTouch_getPosition(Finger, CPointer);
         }
@@ -811,16 +812,16 @@ namespace SFML.Window
         static extern ContextSettings sfWindow_getSettings(IntPtr CPointer);
 
         [DllImport(CSFML.window, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern Vector2i sfWindow_getPosition(IntPtr CPointer);
+        static extern Vector2 sfWindow_getPosition(IntPtr CPointer);
 
         [DllImport(CSFML.window, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern void sfWindow_setPosition(IntPtr CPointer, Vector2i position);
+        static extern void sfWindow_setPosition(IntPtr CPointer, Vector2 position);
 
         [DllImport(CSFML.window, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern Vector2u sfWindow_getSize(IntPtr CPointer);
+        static extern Vector2 sfWindow_getSize(IntPtr CPointer);
 
         [DllImport(CSFML.window, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern void sfWindow_setSize(IntPtr CPointer, Vector2u size);
+        static extern void sfWindow_setSize(IntPtr CPointer, Vector2 size);
 
         [DllImport(CSFML.window, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
         static extern void sfWindow_setTitle(IntPtr CPointer, string title);
@@ -871,13 +872,13 @@ namespace SFML.Window
         static extern bool sfWindow_hasFocus(IntPtr CPointer);
 
         [DllImport(CSFML.window, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern Vector2i sfMouse_getPosition(IntPtr CPointer);
+        static extern Vector2 sfMouse_getPosition(IntPtr CPointer);
 
         [DllImport(CSFML.window, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern void sfMouse_setPosition(Vector2i position, IntPtr CPointer);
+        static extern void sfMouse_setPosition(Vector2 position, IntPtr CPointer);
 
         [DllImport(CSFML.window, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern Vector2i sfTouch_getPosition(uint Finger, IntPtr RelativeTo);
+        static extern Vector2 sfTouch_getPosition(uint Finger, IntPtr RelativeTo);
         #endregion
     }
 }

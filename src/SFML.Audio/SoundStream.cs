@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Security;
 using SFML.System;
@@ -117,7 +118,7 @@ namespace SFML.Audio
         ////////////////////////////////////////////////////////////
         /// <summary>
         /// Pitch of the stream.
-        /// 
+        ///
         /// The pitch represents the perceived fundamental frequency
         /// of a sound; thus you can make a sound more acute or grave
         /// by changing its pitch. A side effect of changing the pitch
@@ -134,7 +135,7 @@ namespace SFML.Audio
         ////////////////////////////////////////////////////////////
         /// <summary>
         /// Volume of the stream.
-        /// 
+        ///
         /// The volume is a value between 0 (mute) and 100 (full volume).
         /// The default value for the volume is 100.
         /// </summary>
@@ -154,7 +155,7 @@ namespace SFML.Audio
         /// The default position of a sound is (0, 0, 0).
         /// </summary>
         ////////////////////////////////////////////////////////////
-        public Vector3f Position
+        public Vector3 Position
         {
             get { return sfSoundStream_getPosition(CPointer); }
             set { sfSoundStream_setPosition(CPointer, value); }
@@ -218,7 +219,7 @@ namespace SFML.Audio
         ////////////////////////////////////////////////////////////
         /// <summary>
         /// Current playing position of the stream.
-        /// 
+        ///
         /// The playing position can be changed when the music is
         /// either paused or playing.
         /// </summary>
@@ -392,7 +393,7 @@ namespace SFML.Audio
         static extern void sfSoundStream_setVolume(IntPtr SoundStream, float Volume);
 
         [DllImport(CSFML.audio, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern void sfSoundStream_setPosition(IntPtr SoundStream, Vector3f position);
+        static extern void sfSoundStream_setPosition(IntPtr SoundStream, Vector3 position);
 
         [DllImport(CSFML.audio, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
         static extern void sfSoundStream_setRelativeToListener(IntPtr SoundStream, bool Relative);
@@ -416,7 +417,7 @@ namespace SFML.Audio
         static extern float sfSoundStream_getVolume(IntPtr SoundStream);
 
         [DllImport(CSFML.audio, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern Vector3f sfSoundStream_getPosition(IntPtr SoundStream);
+        static extern Vector3 sfSoundStream_getPosition(IntPtr SoundStream);
 
         [DllImport(CSFML.audio, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
         static extern bool sfSoundStream_isRelativeToListener(IntPtr SoundStream);

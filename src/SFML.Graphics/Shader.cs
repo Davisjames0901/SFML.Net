@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Security;
 using SFML.System;
@@ -340,7 +341,7 @@ namespace SFML.Graphics
         /// </code>
         /// </para>
         /// </remarks>
-        /// 
+        ///
         /// <param name="name">Name of the texture in the shader</param>
         /// <param name="texture">Texture to assign</param>
         ///
@@ -374,7 +375,7 @@ namespace SFML.Graphics
         /// </code>
         /// </para>
         /// </remarks>
-        /// 
+        ///
         /// <param name="name">Name of the texture in the shader</param>
         /// <param name="current"/>
         ////////////////////////////////////////////////////////////
@@ -561,7 +562,7 @@ namespace SFML.Graphics
         /// <param name="vector">Vector to assign</param>
         ////////////////////////////////////////////////////////////
         [Obsolete("SetParameter is deprecated, please use the corresponding SetUniform")]
-        public void SetParameter(string name, Vector2f vector)
+        public void SetParameter(string name, Vector2 vector)
         {
             SetParameter(name, vector.X, vector.Y);
         }
@@ -677,12 +678,12 @@ namespace SFML.Graphics
         /// <summary>
         /// Tell whether or not the system supports geometry shaders.
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         /// <para>This property should always be checked before using
         /// the geometry shader features. If it returns false, then
         /// any attempt to use geometry shader features will fail.</para>
-        /// 
+        ///
         /// <para>Note: The first call to this function, whether by your
         /// code or SFML will result in a context switch.</para>
         /// </remarks>

@@ -1,3 +1,4 @@
+using System.Numerics;
 using SFML.System;
 
 namespace SFML.Graphics
@@ -14,7 +15,7 @@ namespace SFML.Graphics
         /// Size of the rendering region of the target
         /// </summary>
         ////////////////////////////////////////////////////////////
-        Vector2u Size { get; }
+        Vector2 Size { get; }
 
         ////////////////////////////////////////////////////////////
         /// <summary>
@@ -61,7 +62,7 @@ namespace SFML.Graphics
         /// <param name="point">Pixel to convert</param>
         /// <returns>The converted point, in "world" coordinates</returns>
         ////////////////////////////////////////////////////////////
-        Vector2f MapPixelToCoords(Vector2i point);
+        Vector2 MapPixelToCoords(Vector2 point);
 
         ////////////////////////////////////////////////////////////
         /// <summary>
@@ -89,7 +90,7 @@ namespace SFML.Graphics
         /// <param name="view">The view to use for converting the point</param>
         /// <returns>The converted point, in "world" coordinates</returns>
         ////////////////////////////////////////////////////////////
-        Vector2f MapPixelToCoords(Vector2i point, View view);
+        Vector2 MapPixelToCoords(Vector2 point, View view);
 
         ////////////////////////////////////////////////////////////
         /// <summary>
@@ -104,7 +105,7 @@ namespace SFML.Graphics
         /// <param name="point">Point to convert</param>
         /// <returns>The converted point, in target coordinates (pixels)</returns>
         ////////////////////////////////////////////////////////////
-        Vector2i MapCoordsToPixel(Vector2f point);
+        Vector2 MapCoordsToPixel(Vector2 point);
 
         ////////////////////////////////////////////////////////////
         /// <summary>
@@ -128,7 +129,7 @@ namespace SFML.Graphics
         /// <param name="view">The view to use for converting the point</param>
         /// <returns>The converted point, in target coordinates (pixels)</returns>
         ////////////////////////////////////////////////////////////
-        Vector2i MapCoordsToPixel(Vector2f point, View view);
+        Vector2 MapCoordsToPixel(Vector2 point, View view);
 
         ////////////////////////////////////////////////////////////
         /// <summary>

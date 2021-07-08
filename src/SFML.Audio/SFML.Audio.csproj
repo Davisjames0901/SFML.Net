@@ -1,11 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
-
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <SFMLModule>Audio</SFMLModule>
+    <TargetFramework>net5.0</TargetFramework>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>default</LangVersion>
   </PropertyGroup>
-
-  <Import Project="..\..\SFML.Module.props" />
 
   <ItemGroup>
     <ProjectReference Include="..\SFML.Graphics\SFML.Graphics.csproj" />

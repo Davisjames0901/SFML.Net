@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
@@ -99,10 +100,10 @@ namespace SFML.Graphics
         /// <summary>
         /// Fill color of the object
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         /// Deprecated. Use <see cref="FillColor"/> instead.
-        /// 
+        ///
         /// By default, the text's fill color is opaque white.
         /// Setting the fill color to a transparent color with an outline
         /// will cause the outline to be displayed in the fill area of the text.
@@ -119,7 +120,7 @@ namespace SFML.Graphics
         /// <summary>
         /// Fill color of the object
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         /// By default, the text's fill color is opaque white.
         /// Setting the fill color to a transparent color with an outline
@@ -136,7 +137,7 @@ namespace SFML.Graphics
         /// <summary>
         /// Outline color of the object
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         /// By default, the text's outline color is opaque black.
         /// </remarks>
@@ -151,7 +152,7 @@ namespace SFML.Graphics
         /// <summary>
         /// Thickness of the object's outline
         /// </summary>
-        /// 
+        ///
         /// <remarks>
         /// <para>By default, the outline thickness is 0.</para>
         /// <para>Be aware that using a negative value for the outline
@@ -274,7 +275,7 @@ namespace SFML.Graphics
         /// <param name="index">Index of the character</param>
         /// <returns>Position of the Index-th character (end of text if Index is out of range)</returns>
         ////////////////////////////////////////////////////////////
-        public Vector2f FindCharacterPos(uint index)
+        public Vector2 FindCharacterPos(uint index)
         {
             return sfText_findCharacterPos(CPointer, index);
         }
@@ -448,7 +449,7 @@ namespace SFML.Graphics
         static extern FloatRect sfText_getRect(IntPtr CPointer);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern Vector2f sfText_findCharacterPos(IntPtr CPointer, uint Index);
+        static extern Vector2 sfText_findCharacterPos(IntPtr CPointer, uint Index);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
         static extern FloatRect sfText_getLocalBounds(IntPtr CPointer);

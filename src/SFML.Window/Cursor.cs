@@ -3,6 +3,7 @@ using SFML.System;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 namespace SFML.Window
 {
     /// <summary>
-    /// Cursor defines the appearance of a system cursor. 
+    /// Cursor defines the appearance of a system cursor.
     /// </summary>
     public class Cursor : ObjectBase
     {
@@ -152,7 +153,7 @@ namespace SFML.Window
         /// <param name="pixels">Array of pixels of the image</param>
         /// <param name="size">Width and height of the image</param>
         /// <param name="hotspot">(x,y) location of the hotspot</param>
-        public Cursor(byte[] pixels, SFML.System.Vector2u size, SFML.System.Vector2u hotspot)
+        public Cursor(byte[] pixels, Vector2 size, Vector2 hotspot)
             : base((IntPtr)0)
         {
             unsafe
@@ -179,7 +180,7 @@ namespace SFML.Window
         static extern IntPtr sfCursor_createFromSystem(CursorType type);
 
         [DllImport(CSFML.window, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern IntPtr sfCursor_createFromPixels(IntPtr pixels, Vector2u size, Vector2u hotspot);
+        static extern IntPtr sfCursor_createFromPixels(IntPtr pixels, Vector2 size, Vector2 hotspot);
 
         [DllImport(CSFML.window, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
         static extern void sfCursor_destroy(IntPtr CPointer);

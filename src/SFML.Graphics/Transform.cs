@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Security;
 using SFML.System;
@@ -45,7 +46,7 @@ namespace SFML.Graphics
         ////////////////////////////////////////////////////////////
         /// <summary>
         /// Return the inverse of the transform.
-        /// 
+        ///
         /// If the inverse cannot be computed, an identity transform
         /// is returned.
         /// </summary>
@@ -64,9 +65,9 @@ namespace SFML.Graphics
         /// <param name="y">Y coordinate of the point to transform</param>
         /// <returns>Transformed point</returns>
         ////////////////////////////////////////////////////////////
-        public Vector2f TransformPoint(float x, float y)
+        public Vector2 TransformPoint(float x, float y)
         {
-            return TransformPoint(new Vector2f(x, y));
+            return TransformPoint(new Vector2(x, y));
         }
 
         ////////////////////////////////////////////////////////////
@@ -76,7 +77,7 @@ namespace SFML.Graphics
         /// <param name="point">Point to transform</param>
         /// <returns>Transformed point</returns>
         ////////////////////////////////////////////////////////////
-        public Vector2f TransformPoint(Vector2f point)
+        public Vector2 TransformPoint(Vector2 point)
         {
             return sfTransform_transformPoint(ref this, point);
         }
@@ -84,7 +85,7 @@ namespace SFML.Graphics
         ////////////////////////////////////////////////////////////
         /// <summary>
         /// Transform a rectangle.
-        /// 
+        ///
         /// Since SFML doesn't provide support for oriented rectangles,
         /// the result of this function is always an axis-aligned
         /// rectangle. Which means that if the transform contains a
@@ -102,7 +103,7 @@ namespace SFML.Graphics
         ////////////////////////////////////////////////////////////
         /// <summary>
         /// Combine the current transform with another one.
-        /// 
+        ///
         /// The result is a transform that is equivalent to applying
         /// this followed by transform. Mathematically, it is
         /// equivalent to a matrix multiplication.
@@ -132,7 +133,7 @@ namespace SFML.Graphics
         /// </summary>
         /// <param name="offset">Translation offset to apply</param>
         ////////////////////////////////////////////////////////////
-        public void Translate(Vector2f offset)
+        public void Translate(Vector2 offset)
         {
             Translate(offset.X, offset.Y);
         }
@@ -151,7 +152,7 @@ namespace SFML.Graphics
         ////////////////////////////////////////////////////////////
         /// <summary>
         /// Combine the current transform with a rotation.
-        /// 
+        ///
         /// The center of rotation is provided for convenience as a second
         /// argument, so that you can build rotations around arbitrary points
         /// more easily (and efficiently) than the usual
@@ -169,7 +170,7 @@ namespace SFML.Graphics
         ////////////////////////////////////////////////////////////
         /// <summary>
         /// Combine the current transform with a rotation.
-        /// 
+        ///
         /// The center of rotation is provided for convenience as a second
         /// argument, so that you can build rotations around arbitrary points
         /// more easily (and efficiently) than the usual
@@ -178,7 +179,7 @@ namespace SFML.Graphics
         /// <param name="angle">Rotation angle, in degrees</param>
         /// <param name="center">Center of rotation</param>
         ////////////////////////////////////////////////////////////
-        public void Rotate(float angle, Vector2f center)
+        public void Rotate(float angle, Vector2 center)
         {
             Rotate(angle, center.X, center.Y);
         }
@@ -198,7 +199,7 @@ namespace SFML.Graphics
         ////////////////////////////////////////////////////////////
         /// <summary>
         /// Combine the current transform with a scaling.
-        /// 
+        ///
         /// The center of scaling is provided for convenience as a second
         /// argument, so that you can build scaling around arbitrary points
         /// more easily (and efficiently) than the usual
@@ -220,7 +221,7 @@ namespace SFML.Graphics
         /// </summary>
         /// <param name="factors">Scaling factors</param>
         ////////////////////////////////////////////////////////////
-        public void Scale(Vector2f factors)
+        public void Scale(Vector2 factors)
         {
             Scale(factors.X, factors.Y);
         }
@@ -228,7 +229,7 @@ namespace SFML.Graphics
         ////////////////////////////////////////////////////////////
         /// <summary>
         /// Combine the current transform with a scaling.
-        /// 
+        ///
         /// The center of scaling is provided for convenience as a second
         /// argument, so that you can build scaling around arbitrary points
         /// more easily (and efficiently) than the usual
@@ -237,7 +238,7 @@ namespace SFML.Graphics
         /// <param name="factors">Scaling factors</param>
         /// <param name="center">Center of scaling</param>
         ////////////////////////////////////////////////////////////
-        public void Scale(Vector2f factors, Vector2f center)
+        public void Scale(Vector2 factors, Vector2 center)
         {
             Scale(factors.X, factors.Y, center.X, center.Y);
         }
@@ -304,7 +305,7 @@ namespace SFML.Graphics
         /// <param name="right">Right operand (the point to transform)</param>
         /// <returns>New transformed point</returns>
         ////////////////////////////////////////////////////////////
-        public static Vector2f operator *(Transform left, Vector2f right)
+        public static Vector2 operator *(Transform left, Vector2 right)
         {
             return left.TransformPoint(right);
         }
@@ -349,7 +350,7 @@ namespace SFML.Graphics
         static extern Transform sfTransform_getInverse(ref Transform transform);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern Vector2f sfTransform_transformPoint(ref Transform transform, Vector2f point);
+        static extern Vector2 sfTransform_transformPoint(ref Transform transform, Vector2 point);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
         static extern FloatRect sfTransform_transformRect(ref Transform transform, FloatRect rectangle);

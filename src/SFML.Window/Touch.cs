@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Security;
 using SFML.System;
@@ -31,7 +32,7 @@ namespace SFML.Window
         /// <param name="Finger">Finger index</param>
         /// <returns>Current position of the finger</returns>
         ////////////////////////////////////////////////////////////
-        public static Vector2i GetPosition(uint Finger)
+        public static Vector2 GetPosition(uint Finger)
         {
             return GetPosition(Finger, null);
         }
@@ -45,7 +46,7 @@ namespace SFML.Window
         /// <param name="RelativeTo">Reference window</param>
         /// <returns>Current position of the finger</returns>
         ////////////////////////////////////////////////////////////
-        public static Vector2i GetPosition(uint Finger, Window RelativeTo)
+        public static Vector2 GetPosition(uint Finger, Window RelativeTo)
         {
             if (RelativeTo != null)
             {
@@ -62,7 +63,7 @@ namespace SFML.Window
         static extern bool sfTouch_isDown(uint Finger);
 
         [DllImport(CSFML.window, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern Vector2i sfTouch_getPosition(uint Finger, IntPtr RelativeTo);
+        static extern Vector2 sfTouch_getPosition(uint Finger, IntPtr RelativeTo);
         #endregion
     }
 }

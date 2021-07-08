@@ -1,3 +1,4 @@
+using System.Numerics;
 using System.Runtime.InteropServices;
 using SFML.System;
 
@@ -14,9 +15,9 @@ namespace SFML.Graphics.Glsl
     {
         ////////////////////////////////////////////////////////////
         /// <summary>
-        /// Implicit cast from <see cref="Vector2f"/> to <see cref="Vec2"/>
+        /// Implicit cast from <see cref="Vector2"/> to <see cref="Vec2"/>
         /// </summary>
-        public static implicit operator Vec2(Vector2f vec) => new Vec2(vec);
+        public static implicit operator Vec2(Vector2 vec) => new Vec2(vec);
 
         ////////////////////////////////////////////////////////////
         /// <summary>
@@ -33,11 +34,11 @@ namespace SFML.Graphics.Glsl
 
         ////////////////////////////////////////////////////////////
         /// <summary>
-        /// Construct the <see cref="Vec2"/> from a standard SFML <see cref="Vector2f"/>
+        /// Construct the <see cref="Vec2"/> from a standard SFML <see cref="Vector2"/>
         /// </summary>
         /// <param name="vec">A standard SFML 2D vector</param>
         ////////////////////////////////////////////////////////////
-        public Vec2(Vector2f vec)
+        public Vec2(Vector2 vec)
         {
             X = vec.X;
             Y = vec.Y;
@@ -60,9 +61,9 @@ namespace SFML.Graphics.Glsl
     {
         ////////////////////////////////////////////////////////////
         /// <summary>
-        /// Implicit cast from <see cref="Vector2i"/> to <see cref="Ivec2"/>
+        /// Implicit cast from <see cref="Vector2"/> to <see cref="Ivec2"/>
         /// </summary>
-        public static implicit operator Ivec2(Vector2i vec) => new Ivec2(vec);
+        public static implicit operator Ivec2(Vector2 vec) => new Ivec2(vec);
 
         ////////////////////////////////////////////////////////////
         /// <summary>
@@ -79,14 +80,14 @@ namespace SFML.Graphics.Glsl
 
         ////////////////////////////////////////////////////////////
         /// <summary>
-        /// Construct the <see cref="Ivec2"/> from a standard SFML <see cref="Vector2i"/>
+        /// Construct the <see cref="Ivec2"/> from a standard SFML <see cref="Vector2"/>
         /// </summary>
         /// <param name="vec">A standard SFML 2D integer vector</param>
         ////////////////////////////////////////////////////////////
-        public Ivec2(Vector2i vec)
+        public Ivec2(Vector2 vec)
         {
-            X = vec.X;
-            Y = vec.Y;
+            X = (int)vec.X;
+            Y = (int)vec.Y;
         }
 
         /// <summary>Horizontal component of the vector</summary>
@@ -136,9 +137,9 @@ namespace SFML.Graphics.Glsl
     {
         ////////////////////////////////////////////////////////////
         /// <summary>
-        /// Implicit cast from <see cref="Vector3f"/> to <see cref="Vec3"/>
+        /// Implicit cast from <see cref="Vector3"/> to <see cref="Vec3"/>
         /// </summary>
-        public static implicit operator Vec3(Vector3f vec) => new Vec3(vec);
+        public static implicit operator Vec3(Vector3 vec) => new Vec3(vec);
 
         ////////////////////////////////////////////////////////////
         /// <summary>
@@ -157,11 +158,11 @@ namespace SFML.Graphics.Glsl
 
         ////////////////////////////////////////////////////////////
         /// <summary>
-        /// Construct the <see cref="Vec3"/> from a standard SFML <see cref="Vector3f"/>
+        /// Construct the <see cref="Vec3"/> from a standard SFML <see cref="Vector3"/>
         /// </summary>
         /// <param name="vec">A standard SFML 3D vector</param>
         ////////////////////////////////////////////////////////////
-        public Vec3(Vector3f vec)
+        public Vec3(Vector3 vec)
         {
             X = vec.X;
             Y = vec.Y;

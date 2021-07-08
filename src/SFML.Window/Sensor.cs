@@ -1,3 +1,4 @@
+using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Security;
 using SFML.System;
@@ -71,7 +72,7 @@ namespace SFML.Window
         /// <param name="Sensor">Sensor to check</param>
         /// <returns>The current sensor value</returns>
         ////////////////////////////////////////////////////////////
-        public static Vector3f GetValue(Type Sensor)
+        public static Vector3 GetValue(Type Sensor)
         {
             return sfSensor_getValue(Sensor);
         }
@@ -84,7 +85,7 @@ namespace SFML.Window
         static extern void sfSensor_setEnabled(Type Sensor, bool Enabled);
 
         [DllImport(CSFML.window, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern Vector3f sfSensor_getValue(Type Sensor);
+        static extern Vector3 sfSensor_getValue(Type Sensor);
         #endregion
     }
 }
