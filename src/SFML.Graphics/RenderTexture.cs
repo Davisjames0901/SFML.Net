@@ -192,7 +192,7 @@ namespace SFML.Graphics
         ////////////////////////////////////////////////////////////
         public Vector2 MapPixelToCoords(Vector2 point, View view)
         {
-            return sfRenderTexture_mapPixelToCoords(CPointer, point, view != null ? view.CPointer : IntPtr.Zero);
+            return Vector2i.Convert(sfRenderTexture_mapPixelToCoords(CPointer, Vector2i.Convert(point), view?.CPointer ?? IntPtr.Zero));
         }
 
         ////////////////////////////////////////////////////////////
@@ -237,7 +237,7 @@ namespace SFML.Graphics
         ////////////////////////////////////////////////////////////
         public Vector2 MapCoordsToPixel(Vector2 point, View view)
         {
-            return sfRenderTexture_mapCoordsToPixel(CPointer, point, view != null ? view.CPointer : IntPtr.Zero);
+            return sfRenderTexture_mapCoordsToPixel(CPointer, Vector2i.Convert(point), view != null ? view.CPointer : IntPtr.Zero);
         }
 
         ////////////////////////////////////////////////////////////
@@ -567,10 +567,10 @@ namespace SFML.Graphics
         static extern IntRect sfRenderTexture_getViewport(IntPtr CPointer, IntPtr TargetView);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern Vector2 sfRenderTexture_mapCoordsToPixel(IntPtr CPointer, Vector2 point, IntPtr View);
+        static extern Vector2 sfRenderTexture_mapCoordsToPixel(IntPtr CPointer, Vector2i point, IntPtr View);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern Vector2 sfRenderTexture_mapPixelToCoords(IntPtr CPointer, Vector2 point, IntPtr View);
+        static extern Vector2i sfRenderTexture_mapPixelToCoords(IntPtr CPointer, Vector2i point, IntPtr View);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
         static extern IntPtr sfRenderTexture_getTexture(IntPtr CPointer);

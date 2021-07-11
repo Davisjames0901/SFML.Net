@@ -67,7 +67,8 @@ namespace SFML.Graphics
         ////////////////////////////////////////////////////////////
         public Vector2 TransformPoint(float x, float y)
         {
-            return TransformPoint(new Vector2(x, y));
+            return new Vector2(m00 * x + m01 * y + m02,
+                m10 * x + m11 * y + m12);
         }
 
         ////////////////////////////////////////////////////////////
@@ -79,7 +80,7 @@ namespace SFML.Graphics
         ////////////////////////////////////////////////////////////
         public Vector2 TransformPoint(Vector2 point)
         {
-            return sfTransform_transformPoint(ref this, point);
+            return TransformPoint(point.X, point.Y);
         }
 
         ////////////////////////////////////////////////////////////
@@ -278,7 +279,7 @@ namespace SFML.Graphics
             var hash0 = m00.GetHashCode() ^ m01.GetHashCode() ^ m02.GetHashCode();
             var hash1 = m10.GetHashCode() ^ m11.GetHashCode() ^ m12.GetHashCode();
             var hash2 = m20.GetHashCode() ^ m21.GetHashCode() ^ m22.GetHashCode();
-            return (hash0 ^ hash1 ^ hash2);
+            return hash0 ^ hash1 ^ hash2;
         }
 
         ////////////////////////////////////////////////////////////
@@ -341,16 +342,20 @@ namespace SFML.Graphics
                    m20, m21, m22);
         }
 
-        internal float m00, m01, m02;
-        internal float m10, m11, m12;
-        internal float m20, m21, m22;
+        public float m00;
+        public float m01;
+        public float m02;
+        public float m10;
+        public float m11;
+        public float m12;
+        public float m20;
+        public float m21;
+        public float m22;
+
 
         #region Imports
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
         static extern Transform sfTransform_getInverse(ref Transform transform);
-
-        [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern Vector2 sfTransform_transformPoint(ref Transform transform, Vector2 point);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
         static extern FloatRect sfTransform_transformRect(ref Transform transform, FloatRect rectangle);

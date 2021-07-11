@@ -466,7 +466,7 @@ namespace SFML.Window
         ////////////////////////////////////////////////////////////
         protected internal virtual Vector2 InternalGetMousePosition()
         {
-            return sfMouse_getPosition(CPointer);
+            return Vector2i.Convert(sfMouse_getPosition(CPointer));
         }
 
         ////////////////////////////////////////////////////////////
@@ -872,7 +872,7 @@ namespace SFML.Window
         static extern bool sfWindow_hasFocus(IntPtr CPointer);
 
         [DllImport(CSFML.window, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern Vector2 sfMouse_getPosition(IntPtr CPointer);
+        static extern Vector2i sfMouse_getPosition(IntPtr CPointer);
 
         [DllImport(CSFML.window, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
         static extern void sfMouse_setPosition(Vector2 position, IntPtr CPointer);

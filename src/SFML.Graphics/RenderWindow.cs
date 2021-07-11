@@ -143,7 +143,11 @@ namespace SFML.Graphics
         ////////////////////////////////////////////////////////////
         public override Vector2 Size
         {
-            get { return sfRenderWindow_getSize(CPointer); }
+            get
+            {
+                var size = sfRenderWindow_getSize(CPointer);
+                return new Vector2(size.X, size.Y);
+            }
             set { sfRenderWindow_setSize(CPointer, value); }
         }
 
@@ -395,18 +399,6 @@ namespace SFML.Graphics
 
         ////////////////////////////////////////////////////////////
         /// <summary>
-        /// Get the viewport of a view applied to this target
-        /// </summary>
-        /// <param name="view">Target view</param>
-        /// <returns>Viewport rectangle, expressed in pixels in the current target</returns>
-        ////////////////////////////////////////////////////////////
-        public IntRect GetViewport(View view)
-        {
-            return sfRenderWindow_getViewport(CPointer, view.CPointer);
-        }
-
-        ////////////////////////////////////////////////////////////
-        /// <summary>
         /// Convert a point from target coordinates to world
         /// coordinates, using the current view
         ///
@@ -451,8 +443,25 @@ namespace SFML.Graphics
         ////////////////////////////////////////////////////////////
         public Vector2 MapPixelToCoords(Vector2 point, View view)
         {
-            return sfRenderWindow_mapPixelToCoords(CPointer, point, view != null ? view.CPointer : IntPtr.Zero);
+            var normalized = new Vector2();
+            var viewport = GetViewport(view);
+            normalized.X = -1.0f + 2.0f * (point.X - viewport.Left) / viewport.Width;
+            normalized.Y =  1.0f - 2.0f * (point.Y - viewport.Top)  / viewport.Height;
+
+            return view.GetTransform().GetInverse().TransformPoint(normalized);
         }
+
+        public IntRect GetViewport(View view)
+        {
+            var viewport = view.Viewport;
+
+            return new IntRect((int)(0.5f + Size.X * viewport.Left),
+                (int)(0.5f + Size.Y * viewport.Top),
+                (int)(0.5f + Size.X * viewport.Width),
+                (int)(0.5f + Size.Y * viewport.Height));
+        }
+
+
 
         ////////////////////////////////////////////////////////////
         /// <summary>
@@ -496,7 +505,7 @@ namespace SFML.Graphics
         ////////////////////////////////////////////////////////////
         public Vector2 MapCoordsToPixel(Vector2 point, View view)
         {
-            return sfRenderWindow_mapCoordsToPixel(CPointer, point, view != null ? view.CPointer : IntPtr.Zero);
+            return sfRenderWindow_mapCoordsToPixel(CPointer, Vector2i.Convert(point), view != null ? view.CPointer : IntPtr.Zero);
         }
 
         ////////////////////////////////////////////////////////////
@@ -735,7 +744,7 @@ namespace SFML.Graphics
         ////////////////////////////////////////////////////////////
         protected override Vector2 InternalGetMousePosition()
         {
-            return sfMouse_getPositionRenderWindow(CPointer);
+            return Vector2i.Convert(sfMouse_getPositionRenderWindow(CPointer));
         }
 
         ////////////////////////////////////////////////////////////
@@ -829,7 +838,7 @@ namespace SFML.Graphics
         static extern void sfRenderWindow_setPosition(IntPtr CPointer, Vector2 position);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern Vector2 sfRenderWindow_getSize(IntPtr CPointer);
+        static extern Vector2u sfRenderWindow_getSize(IntPtr CPointer);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
         static extern void sfRenderWindow_setSize(IntPtr CPointer, Vector2 size);
@@ -894,14 +903,14 @@ namespace SFML.Graphics
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
         static extern IntPtr sfRenderWindow_getDefaultView(IntPtr CPointer);
 
-        [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern IntRect sfRenderWindow_getViewport(IntPtr CPointer, IntPtr TargetView);
+        //[DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
+        //static extern IntRect sfRenderWindow_getViewport(IntPtr CPointer, IntPtr TargetView);
+
+        //[DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
+        //static extern Vector2i sfRenderWindow_mapPixelToCoords(IntPtr CPointer, Vector2i point, IntPtr View);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern Vector2 sfRenderWindow_mapPixelToCoords(IntPtr CPointer, Vector2 point, IntPtr View);
-
-        [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern Vector2 sfRenderWindow_mapCoordsToPixel(IntPtr CPointer, Vector2 point, IntPtr View);
+        static extern Vector2 sfRenderWindow_mapCoordsToPixel(IntPtr CPointer, Vector2i point, IntPtr View);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
         unsafe static extern void sfRenderWindow_drawPrimitives(IntPtr CPointer, Vertex* vertexPtr, uint vertexCount, PrimitiveType type, ref RenderStates.MarshalData renderStates);
@@ -919,7 +928,7 @@ namespace SFML.Graphics
         static extern IntPtr sfRenderWindow_capture(IntPtr CPointer);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern Vector2 sfMouse_getPositionRenderWindow(IntPtr CPointer);
+        static extern Vector2i sfMouse_getPositionRenderWindow(IntPtr CPointer);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
         static extern void sfMouse_setPositionRenderWindow(Vector2 position, IntPtr CPointer);

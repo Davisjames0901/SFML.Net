@@ -17,6 +17,7 @@ namespace SFML.Graphics
     ////////////////////////////////////////////////////////////
     public class View : ObjectBase
     {
+        private Transform? _transform;
         ////////////////////////////////////////////////////////////
         /// <summary>
         /// Create a default view (1000x1000)
@@ -177,6 +178,31 @@ namespace SFML.Graphics
             base(cPointer)
         {
             myExternal = true;
+        }
+
+        internal Transform GetTransform()
+        {
+            if (_transform.HasValue)
+                return _transform.Value;
+
+            double angle = Rotation * Math.PI / 180.0f;
+            float cosine = (float)Math.Cos(angle);
+            float sine = (float)Math.Sin(angle);
+            float tx = -Center.X * cosine - Center.Y * sine + Center.X;
+            float ty =  Center.X * sine - Center.Y * cosine + Center.Y;
+
+            // Projection components
+            float a =  2.0f / Size.X;
+            float b = -2.0f / Size.Y;
+            float c = -a * Center.X;
+            float d = -b * Center.Y;
+
+            // Rebuild the projection matrix
+            _transform = new Transform(a * cosine, a * sine, a * tx + c,
+                -b * sine,   b * cosine, b * ty + d,
+                0.0f,        0.0f,        1.0f);
+
+            return _transform.Value;
         }
 
         ////////////////////////////////////////////////////////////
