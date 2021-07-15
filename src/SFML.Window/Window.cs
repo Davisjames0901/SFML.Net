@@ -7,11 +7,9 @@ using SFML.System;
 
 namespace SFML.Window
 {
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// Enumeration of window creation styles
     /// </summary>
-    ////////////////////////////////////////////////////////////
     [Flags]
     public enum Styles
     {
@@ -34,40 +32,33 @@ namespace SFML.Window
         Default = Titlebar | Resize | Close
     }
 
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// Window is a rendering window ; it can create a new window
     /// or connect to an existing one
     /// </summary>
-    ////////////////////////////////////////////////////////////
     public class Window : ObjectBase
     {
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Create the window with default style and creation settings
         /// </summary>
         /// <param name="mode">Video mode to use</param>
         /// <param name="title">Title of the window</param>
-        ////////////////////////////////////////////////////////////
         public Window(VideoMode mode, string title) :
             this(mode, title, Styles.Default, new ContextSettings(0, 0))
         {
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Create the window with default creation settings
         /// </summary>
         /// <param name="mode">Video mode to use</param>
         /// <param name="title">Title of the window</param>
         /// <param name="style">Window style (Resize | Close by default)</param>
-        ////////////////////////////////////////////////////////////
         public Window(VideoMode mode, string title, Styles style) :
             this(mode, title, style, new ContextSettings(0, 0))
         {
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Create the window
         /// </summary>
@@ -75,7 +66,6 @@ namespace SFML.Window
         /// <param name="title">Title of the window</param>
         /// <param name="style">Window style (Resize | Close by default)</param>
         /// <param name="settings">Creation parameters</param>
-        ////////////////////////////////////////////////////////////
         public Window(VideoMode mode, string title, Styles style, ContextSettings settings) :
             base(IntPtr.Zero)
         {
@@ -91,102 +81,84 @@ namespace SFML.Window
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Create the window from an existing control with default creation settings
         /// </summary>
         /// <param name="handle">Platform-specific handle of the control</param>
-        ////////////////////////////////////////////////////////////
         public Window(IntPtr handle) :
             this(handle, new ContextSettings(0, 0))
         {
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Create the window from an existing control
         /// </summary>
         /// <param name="Handle">Platform-specific handle of the control</param>
         /// <param name="settings">Creation parameters</param>
-        ////////////////////////////////////////////////////////////
         public Window(IntPtr Handle, ContextSettings settings) :
             base(sfWindow_createFromHandle(Handle, ref settings))
         {
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Tell whether or not the window is opened (ie. has been created).
         /// Note that a hidden window (Show(false))
         /// will still return true
         /// </summary>
         /// <returns>True if the window is opened</returns>
-        ////////////////////////////////////////////////////////////
         public virtual bool IsOpen
         {
             get { return sfWindow_isOpen(CPointer); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Close (destroy) the window.
         /// The Window instance remains valid and you can call
         /// Create to recreate the window
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public virtual void Close()
         {
             sfWindow_close(CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Display the window on screen
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public virtual void Display()
         {
             sfWindow_display(CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Creation settings of the window
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public virtual ContextSettings Settings
         {
             get { return sfWindow_getSettings(CPointer); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Position of the window
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public virtual Vector2 Position
         {
             get { return sfWindow_getPosition(CPointer); }
             set { sfWindow_setPosition(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Size of the rendering region of the window
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public virtual Vector2 Size
         {
             get { return sfWindow_getSize(CPointer); }
             set { sfWindow_setSize(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Change the title of the window
         /// </summary>
         /// <param name="title">New title</param>
-        ////////////////////////////////////////////////////////////
         public virtual void SetTitle(string title)
         {
             // Copy the title to a null-terminated UTF-32 byte array
@@ -201,14 +173,12 @@ namespace SFML.Window
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Change the window's icon
         /// </summary>
         /// <param name="width">Icon's width, in pixels</param>
         /// <param name="height">Icon's height, in pixels</param>
         /// <param name="pixels">Array of pixels, format must be RGBA 32 bits</param>
-        ////////////////////////////////////////////////////////////
         public virtual void SetIcon(uint width, uint height, byte[] pixels)
         {
             unsafe
@@ -220,29 +190,24 @@ namespace SFML.Window
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Show or hide the window
         /// </summary>
         /// <param name="visible">True to show the window, false to hide it</param>
-        ////////////////////////////////////////////////////////////
         public virtual void SetVisible(bool visible)
         {
             sfWindow_setVisible(CPointer, visible);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Show or hide the mouse cursor
         /// </summary>
         /// <param name="show">True to show, false to hide</param>
-        ////////////////////////////////////////////////////////////
         public virtual void SetMouseCursorVisible(bool show)
         {
             sfWindow_setMouseCursorVisible(CPointer, show);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Grab or release the mouse cursor
         /// </summary>
@@ -256,110 +221,91 @@ namespace SFML.Window
         /// won't have any effect (fullscreen windows always grab the
         /// cursor).
         /// </remarks>
-        ////////////////////////////////////////////////////////////
         public virtual void SetMouseCursorGrabbed(bool grabbed)
         {
             sfWindow_setMouseCursorGrabbed(CPointer, grabbed);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Set the displayed cursor to a native system cursor
         /// </summary>
         /// <param name="cursor">Native system cursor type to display</param>
-        ////////////////////////////////////////////////////////////
         public virtual void SetMouseCursor(Cursor cursor)
         {
             sfWindow_setMouseCursor(CPointer, cursor.CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Enable / disable vertical synchronization
         /// </summary>
         /// <param name="enable">True to enable v-sync, false to deactivate</param>
-        ////////////////////////////////////////////////////////////
         public virtual void SetVerticalSyncEnabled(bool enable)
         {
             sfWindow_setVerticalSyncEnabled(CPointer, enable);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Enable or disable automatic key-repeat.
         /// Automatic key-repeat is enabled by default
         /// </summary>
         /// <param name="enable">True to enable, false to disable</param>
-        ////////////////////////////////////////////////////////////
         public virtual void SetKeyRepeatEnabled(bool enable)
         {
             sfWindow_setKeyRepeatEnabled(CPointer, enable);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Activate the window as the current target
         /// for rendering
         /// </summary>
         /// <returns>True if operation was successful, false otherwise</returns>
-        ////////////////////////////////////////////////////////////
         public virtual bool SetActive()
         {
             return SetActive(true);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Activate of deactivate the window as the current target
         /// for rendering
         /// </summary>
         /// <param name="active">True to activate, false to deactivate (true by default)</param>
         /// <returns>True if operation was successful, false otherwise</returns>
-        ////////////////////////////////////////////////////////////
         public virtual bool SetActive(bool active)
         {
             return sfWindow_setActive(CPointer, active);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Limit the framerate to a maximum fixed frequency
         /// </summary>
         /// <param name="limit">Framerate limit, in frames per seconds (use 0 to disable limit)</param>
-        ////////////////////////////////////////////////////////////
         public virtual void SetFramerateLimit(uint limit)
         {
             sfWindow_setFramerateLimit(CPointer, limit);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Change the joystick threshold, ie. the value below which
         /// no move event will be generated
         /// </summary>
         /// <param name="threshold">New threshold, in range [0, 100]</param>
-        ////////////////////////////////////////////////////////////
         public virtual void SetJoystickThreshold(float threshold)
         {
             sfWindow_setJoystickThreshold(CPointer, threshold);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// OS-specific handle of the window
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public virtual IntPtr SystemHandle
         {
             get { return sfWindow_getSystemHandle(CPointer); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Wait for a new event and dispatch it to the corresponding
         /// event handler
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public void WaitAndDispatchEvents()
         {
             Event e;
@@ -369,11 +315,9 @@ namespace SFML.Window
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Call the event handlers for each pending event
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public void DispatchEvents()
         {
             Event e;
@@ -383,34 +327,28 @@ namespace SFML.Window
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Request the current window to be made the active
         /// foreground window
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public virtual void RequestFocus()
         {
             sfWindow_requestFocus(CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Check whether the window has the input focus
         /// </summary>
         /// <returns>True if the window has focus, false otherwise</returns>
-        ////////////////////////////////////////////////////////////
         public virtual bool HasFocus()
         {
             return sfWindow_hasFocus(CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Provide a string describing the object
         /// </summary>
         /// <returns>String description of the object</returns>
-        ////////////////////////////////////////////////////////////
         public override string ToString()
         {
             return "[Window]" +
@@ -419,70 +357,59 @@ namespace SFML.Window
                    " Settings(" + Settings + ")";
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Constructor for derived classes
         /// </summary>
         /// <param name="cPointer">Pointer to the internal object in the C API</param>
         /// <param name="dummy">Internal hack :)</param>
-        ////////////////////////////////////////////////////////////
         protected Window(IntPtr cPointer, int dummy) :
             base(cPointer)
         {
             // TODO : find a cleaner way of separating this constructor from Window(IntPtr handle)
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Internal function to get the next event (non-blocking)
         /// </summary>
         /// <param name="eventToFill">Variable to fill with the raw pointer to the event structure</param>
         /// <returns>True if there was an event, false otherwise</returns>
-        ////////////////////////////////////////////////////////////
         protected virtual bool PollEvent(out Event eventToFill)
         {
             return sfWindow_pollEvent(CPointer, out eventToFill);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Internal function to get the next event (blocking)
         /// </summary>
         /// <param name="eventToFill">Variable to fill with the raw pointer to the event structure</param>
         /// <returns>False if any error occured</returns>
-        ////////////////////////////////////////////////////////////
         protected virtual bool WaitEvent(out Event eventToFill)
         {
             return sfWindow_waitEvent(CPointer, out eventToFill);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Internal function to get the mouse position relative to the window.
         /// This function is protected because it is called by another class of
         /// another module, it is not meant to be called by users.
         /// </summary>
         /// <returns>Relative mouse position</returns>
-        ////////////////////////////////////////////////////////////
         protected internal virtual Vector2 InternalGetMousePosition()
         {
             return Vector2i.Convert(sfMouse_getPosition(CPointer));
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Internal function to set the mouse position relative to the window.
         /// This function is protected because it is called by another class of
         /// another module, it is not meant to be called by users.
         /// </summary>
         /// <param name="position">Relative mouse position</param>
-        ////////////////////////////////////////////////////////////
         protected internal virtual void InternalSetMousePosition(Vector2 position)
         {
             sfMouse_setPosition(position, CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Internal function to get the touch position relative to the window.
         /// This function is protected because it is called by another class of
@@ -490,29 +417,24 @@ namespace SFML.Window
         /// </summary>
         /// <param name="Finger">Finger index</param>
         /// <returns>Relative touch position</returns>
-        ////////////////////////////////////////////////////////////
         protected internal virtual Vector2 InternalGetTouchPosition(uint Finger)
         {
             return sfTouch_getPosition(Finger, CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Handle the destruction of the object
         /// </summary>
         /// <param name="disposing">Is the GC disposing the object, or is it an explicit call ?</param>
-        ////////////////////////////////////////////////////////////
         protected override void Destroy(bool disposing)
         {
             sfWindow_destroy(CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Call the event handler for the given event
         /// </summary>
         /// <param name="e">Event to dispatch</param>
-        ////////////////////////////////////////////////////////////
         private void CallEventHandler(Event e)
         {
             switch (e.Type)

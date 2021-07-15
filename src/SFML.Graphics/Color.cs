@@ -3,25 +3,20 @@ using System.Runtime.InteropServices;
 
 namespace SFML.Graphics
 {
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// Utility class for manipulating 32-bits RGBA colors
     /// </summary>
-    ////////////////////////////////////////////////////////////
     [StructLayout(LayoutKind.Sequential)]
     public struct Color : IEquatable<Color>
     {
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct the color from its red, green and blue components
         /// </summary>
         /// <param name="red">Red component</param>
         /// <param name="green">Green component</param>
         /// <param name="blue">Blue component</param>
-        ////////////////////////////////////////////////////////////
         public Color(byte red, byte green, byte blue) : this(red, green, blue, 255) { }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct the color from its red, green, blue and alpha components
         /// </summary>
@@ -29,7 +24,6 @@ namespace SFML.Graphics
         /// <param name="green">Green component</param>
         /// <param name="blue">Blue component</param>
         /// <param name="alpha">Alpha (transparency) component</param>
-        ////////////////////////////////////////////////////////////
         public Color(byte red, byte green, byte blue, byte alpha)
         {
             R = red;
@@ -38,12 +32,10 @@ namespace SFML.Graphics
             A = alpha;
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct the color from 32-bit unsigned integer
         /// </summary>
         /// <param name="color">Number containing the RGBA components (in that order)</param>
-        ////////////////////////////////////////////////////////////
         public Color(uint color)
         {
             unchecked
@@ -55,37 +47,29 @@ namespace SFML.Graphics
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct the color from another
         /// </summary>
         /// <param name="color">Color to copy</param>
-        ////////////////////////////////////////////////////////////
         public Color(Color color) : this(color.R, color.G, color.B, color.A) { }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Convert a color to a 32-bit unsigned integer
         /// </summary>
         /// <returns>Color represented as a 32-bit unsigned integer</returns>
-        ////////////////////////////////////////////////////////////
         public uint ToInteger() => (uint)( ( R << 24 ) | ( G << 16 ) | ( B << 8 ) | A );
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Provide a string describing the object
         /// </summary>
         /// <returns>String description of the object</returns>
-        ////////////////////////////////////////////////////////////
         public override string ToString() => $"[Color] R({R}) G({G}) B({B}) A({A})";
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Compare color and object and checks if they are equal
         /// </summary>
         /// <param name="obj">Object to check</param>
         /// <returns>Object and color are equal</returns>
-        ////////////////////////////////////////////////////////////
         public override bool Equals(object obj) => ( obj is Color ) && Equals((Color)obj);
 
         ///////////////////////////////////////////////////////////
@@ -94,40 +78,31 @@ namespace SFML.Graphics
         /// </summary>
         /// <param name="other">Color to check</param>
         /// <returns>Colors are equal</returns>
-        ////////////////////////////////////////////////////////////
         public bool Equals(Color other) => ( R == other.R ) && ( G == other.G ) && ( B == other.B ) && ( A == other.A );
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Provide a integer describing the object
         /// </summary>
         /// <returns>Integer description of the object</returns>
-        ////////////////////////////////////////////////////////////
         public override int GetHashCode() => ( R << 24 ) | ( G << 16 ) | ( B << 8 ) | A;
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Compare two colors and checks if they are equal
         /// </summary>
         /// <returns>Colors are equal</returns>
-        ////////////////////////////////////////////////////////////
         public static bool operator ==(Color left, Color right) => left.Equals(right);
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Compare two colors and checks if they are not equal
         /// </summary>
         /// <returns>Colors are not equal</returns>
-        ////////////////////////////////////////////////////////////
         public static bool operator !=(Color left, Color right) => !left.Equals(right);
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// This operator returns the component-wise sum of two colors.
         /// Components that exceed 255 are clamped to 255.
         /// </summary>
         /// <returns>Result of left + right</returns>
-        ////////////////////////////////////////////////////////////
         public static Color operator +(Color left, Color right)
         {
             return new Color((byte)Math.Min(left.R + right.R, 255),
@@ -136,13 +111,11 @@ namespace SFML.Graphics
                              (byte)Math.Min(left.A + right.A, 255));
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// This operator returns the component-wise subtraction of two colors.
         /// Components below 0 are clamped to 0.
         /// </summary>
         /// <returns>Result of left - right</returns>
-        ////////////////////////////////////////////////////////////
         public static Color operator -(Color left, Color right)
         {
             return new Color((byte)Math.Max(left.R - right.R, 0),
@@ -151,13 +124,11 @@ namespace SFML.Graphics
                              (byte)Math.Max(left.A - right.A, 0));
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// This operator returns the component-wise multiplication of two colors.
         /// Components above 255 are clamped to 255.
         /// </summary>
         /// <returns>Result of left * right</returns>
-        ////////////////////////////////////////////////////////////
         public static Color operator *(Color left, Color right)
         {
             return new Color((byte)( left.R * right.R / 255 ),

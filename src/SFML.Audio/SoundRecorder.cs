@@ -5,18 +5,14 @@ using SFML.System;
 
 namespace SFML.Audio
 {
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// Base class intended for capturing sound data
     /// </summary>
-    ////////////////////////////////////////////////////////////
     public abstract class SoundRecorder : ObjectBase
     {
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Default constructor
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public SoundRecorder() :
             base(IntPtr.Zero)
         {
@@ -27,19 +23,16 @@ namespace SFML.Audio
             CPointer = sfSoundRecorder_create(myStartCallback, myProcessCallback, myStopCallback, IntPtr.Zero);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Start the capture using the default sample rate (44100 Hz).
         /// 
         /// Please note that only one capture can happen at the same time.
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public bool Start()
         {
             return Start(44100);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Start the capture.
         ///
@@ -52,23 +45,19 @@ namespace SFML.Audio
         /// Please note that only one capture can happen at the same time.
         /// </summary>
         /// <param name="sampleRate"> Sound frequency; the more samples, the higher the quality (44100 by default = CD quality)</param>
-        ////////////////////////////////////////////////////////////
         public bool Start(uint sampleRate)
         {
             return sfSoundRecorder_start(CPointer, sampleRate);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Stop the capture
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public void Stop()
         {
             sfSoundRecorder_stop(CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Sample rate of the sound recorder.
         /// </summary>
@@ -78,13 +67,11 @@ namespace SFML.Audio
         /// captured per second. The higher, the better the quality
         /// (for example, 44100 samples/sec is CD quality).
         /// </remarks>
-        ////////////////////////////////////////////////////////////
         public uint SampleRate
         {
             get { return sfSoundRecorder_getSampleRate(CPointer); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Get/Set the channel count of the audio capture device
         /// </summary>
@@ -94,14 +81,12 @@ namespace SFML.Audio
         /// used for recording. Currently only 16-bit mono (1) and
         /// 16-bit stereo (2) are supported.
         /// </remarks>
-        ////////////////////////////////////////////////////////////
         public uint ChannelCount
         {
             get { return sfSoundRecorder_getChannelCount(CPointer); }
             set { sfSoundRecorder_setChannelCount(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Check if the system supports audio capture.
         /// </summary>
@@ -112,24 +97,20 @@ namespace SFML.Audio
         /// any attempt to use the SoundRecorder or one of its derived
         /// classes will fail.
         /// </remarks>
-        ////////////////////////////////////////////////////////////
         public static bool IsAvailable
         {
             get { return sfSoundRecorder_isAvailable(); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Provide a string describing the object
         /// </summary>
         /// <returns>String description of the object</returns>
-        ////////////////////////////////////////////////////////////
         public override string ToString()
         {
             return "[SoundRecorder]" + " SampleRate(" + SampleRate + ")";
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Start capturing audio data.
         ///
@@ -139,14 +120,12 @@ namespace SFML.Audio
         /// implementation does nothing.
         /// </summary>
         /// <returns>False to abort recording audio data, true to continue</returns>
-        ////////////////////////////////////////////////////////////
         protected virtual bool OnStart()
         {
             // Does nothing by default
             return true;
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Process a new chunk of recorded samples.
         ///
@@ -157,10 +136,8 @@ namespace SFML.Audio
         /// </summary>
         /// <param name="samples">Array of samples to process</param>
         /// <returns>False to stop recording audio data, true to continue</returns>
-        ////////////////////////////////////////////////////////////
         protected abstract bool OnProcessSamples(short[] samples);
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Stop capturing audio data.
         ///
@@ -169,13 +146,11 @@ namespace SFML.Audio
         /// ends. If not, this function can be ignored; the default
         /// implementation does nothing.
         /// </summary>
-        ////////////////////////////////////////////////////////////
         protected virtual void OnStop()
         {
             // Does nothing by default
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// The processing interval controls the period
         /// between calls to the onProcessSamples function. You may
@@ -187,17 +162,14 @@ namespace SFML.Audio
         ///
         /// The default processing interval is 100 ms.
         /// </summary>
-        ////////////////////////////////////////////////////////////
         protected void SetProcessingInterval(Time interval)
         {
             sfSoundRecorder_setProcessingInterval(CPointer, interval);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Get the list of the names of all available audio capture devices
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public static string[] AvailableDevices
         {
             get
@@ -217,51 +189,42 @@ namespace SFML.Audio
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Get the name of the default audio capture device
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public static string DefaultDevice
         {
             get { return Marshal.PtrToStringAnsi(sfSoundRecorder_getDefaultDevice()); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Set the audio capture device
         /// </summary>
         /// <param name="Name">The name of the audio capture device</param>
         /// <returns>True, if it was able to set the requested device</returns>
-        ////////////////////////////////////////////////////////////
         public bool SetDevice(string Name)
         {
             return sfSoundRecorder_setDevice(CPointer, Name);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Get the name of the current audio capture device
         /// </summary>
         /// <returns>The name of the current audio capture device</returns>
-        ////////////////////////////////////////////////////////////
         public string GetDevice()
         {
             return Marshal.PtrToStringAnsi(sfSoundRecorder_getDevice(CPointer));
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Handle the destruction of the object
         /// </summary>
         /// <param name="disposing">Is the GC disposing the object, or is it an explicit call ?</param>
-        ////////////////////////////////////////////////////////////
         protected override void Destroy(bool disposing)
         {
             sfSoundRecorder_destroy(CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Function called directly by the C library ; convert
         /// arguments and forward them to the internal virtual function
@@ -270,7 +233,6 @@ namespace SFML.Audio
         /// <param name="nbSamples">Number of samples in the array</param>
         /// <param name="userData">User data -- unused</param>
         /// <returns>False to stop recording audio data, true to continue</returns>
-        ////////////////////////////////////////////////////////////
         private bool ProcessSamples(IntPtr samples, uint nbSamples, IntPtr userData)
         {
             short[] samplesArray = new short[nbSamples];

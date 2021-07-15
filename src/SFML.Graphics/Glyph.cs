@@ -2,11 +2,9 @@ using System.Runtime.InteropServices;
 
 namespace SFML.Graphics
 {
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// Structure describing a glyph (a visual character)
     /// </summary>
-    ////////////////////////////////////////////////////////////
     [StructLayout(LayoutKind.Sequential)]
     public struct Glyph
     {

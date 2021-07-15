@@ -4,7 +4,6 @@ using SFML.System;
 
 namespace SFML.Graphics
 {
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// Decomposed transform defined by a position, a rotation and a scale
     /// </summary>
@@ -21,25 +20,20 @@ namespace SFML.Graphics
     /// * The object's and the view's rotation are a multiple of 90 degrees
     /// * The view's center and size have no fractional part
     /// </remarks>
-    ////////////////////////////////////////////////////////////
     public class Transformable : ObjectBase
     {
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Default constructor
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public Transformable() :
             base(IntPtr.Zero)
         {
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct the transformable from another transformable
         /// </summary>
         /// <param name="transformable">Transformable to copy</param>
-        ////////////////////////////////////////////////////////////
         public Transformable(Transformable transformable) :
             base(IntPtr.Zero)
         {
@@ -49,11 +43,9 @@ namespace SFML.Graphics
             Scale = transformable.Scale;
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Position of the object
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public Vector2 Position
         {
             get
@@ -68,11 +60,9 @@ namespace SFML.Graphics
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Rotation of the object
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public float Rotation
         {
             get
@@ -87,11 +77,9 @@ namespace SFML.Graphics
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Scale of the object
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public Vector2 Scale
         {
             get
@@ -106,7 +94,6 @@ namespace SFML.Graphics
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// The origin of an object defines the center point for
         /// all transformations (position, scale, rotation).
@@ -114,7 +101,6 @@ namespace SFML.Graphics
         /// top-left corner of the object, and ignore all
         /// transformations (position, scale, rotation).
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public Vector2 Origin
         {
             get
@@ -129,11 +115,9 @@ namespace SFML.Graphics
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// The combined transform of the object
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public Transform Transform
         {
             get
@@ -160,11 +144,9 @@ namespace SFML.Graphics
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// The combined transform of the object
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public Transform InverseTransform
         {
             get
@@ -178,23 +160,19 @@ namespace SFML.Graphics
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct the object from its internal C pointer
         /// </summary>
         /// <param name="cPointer">Pointer to the object in the C library</param>
-        ////////////////////////////////////////////////////////////
         protected Transformable(IntPtr cPointer) :
             base(cPointer)
         {
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Handle the destruction of the object
         /// </summary>
         /// <param name="disposing">Is the GC disposing the object, or is it an explicit call ?</param>
-        ////////////////////////////////////////////////////////////
         protected override void Destroy(bool disposing)
         {
             // Does nothing, this instance is either pure C# (if created by the user)

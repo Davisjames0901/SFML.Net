@@ -3,53 +3,40 @@ using SFML.System;
 
 namespace SFML.Graphics
 {
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// Abstract base class for render targets (renderwindow, renderimage)
     /// </summary>
-    ////////////////////////////////////////////////////////////
     public interface RenderTarget
     {
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Size of the rendering region of the target
         /// </summary>
-        ////////////////////////////////////////////////////////////
         Vector2 Size { get; }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Default view of the target
         /// </summary>
-        ////////////////////////////////////////////////////////////
         View DefaultView { get; }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Return the current active view
         /// </summary>
         /// <returns>The current view</returns>
-        ////////////////////////////////////////////////////////////
         View GetView();
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Change the current active view
         /// </summary>
         /// <param name="view">New view</param>
-        ////////////////////////////////////////////////////////////
         void SetView(View view);
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Get the viewport of a view applied to this target
         /// </summary>
         /// <param name="view">Target view</param>
         /// <returns>Viewport rectangle, expressed in pixels in the current target</returns>
-        ////////////////////////////////////////////////////////////
         IntRect GetViewport(View view);
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Convert a point from target coordinates to world
         /// coordinates, using the current view
@@ -61,10 +48,8 @@ namespace SFML.Graphics
         /// </summary>
         /// <param name="point">Pixel to convert</param>
         /// <returns>The converted point, in "world" coordinates</returns>
-        ////////////////////////////////////////////////////////////
         Vector2 MapPixelToCoords(Vector2 point);
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Convert a point from target coordinates to world coordinates
         ///
@@ -89,10 +74,8 @@ namespace SFML.Graphics
         /// <param name="point">Pixel to convert</param>
         /// <param name="view">The view to use for converting the point</param>
         /// <returns>The converted point, in "world" coordinates</returns>
-        ////////////////////////////////////////////////////////////
         Vector2 MapPixelToCoords(Vector2 point, View view);
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Convert a point from world coordinates to target
         /// coordinates, using the current view
@@ -104,10 +87,8 @@ namespace SFML.Graphics
         /// </summary>
         /// <param name="point">Point to convert</param>
         /// <returns>The converted point, in target coordinates (pixels)</returns>
-        ////////////////////////////////////////////////////////////
         Vector2 MapCoordsToPixel(Vector2 point);
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Convert a point from world coordinates to target coordinates
         ///
@@ -128,61 +109,47 @@ namespace SFML.Graphics
         /// <param name="point">Point to convert</param>
         /// <param name="view">The view to use for converting the point</param>
         /// <returns>The converted point, in target coordinates (pixels)</returns>
-        ////////////////////////////////////////////////////////////
         Vector2 MapCoordsToPixel(Vector2 point, View view);
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Clear the entire target with black color
         /// </summary>
-        ////////////////////////////////////////////////////////////
         void Clear();
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Clear the entire target with a single color
         /// </summary>
         /// <param name="color">Color to use to clear the window</param>
-        ////////////////////////////////////////////////////////////
         void Clear(Color color);
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Draw a drawable object to the render-target, with default render states
         /// </summary>
         /// <param name="drawable">Object to draw</param>
-        ////////////////////////////////////////////////////////////
         void Draw(Drawable drawable);
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Draw a drawable object to the render-target
         /// </summary>
         /// <param name="drawable">Object to draw</param>
         /// <param name="states">Render states to use for drawing</param>
-        ////////////////////////////////////////////////////////////
         void Draw(Drawable drawable, RenderStates states);
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Draw primitives defined by an array of vertices, with default render states
         /// </summary>
         /// <param name="vertices">Array of vertices to draw</param>
         /// <param name="type">Type of primitives to draw</param>
-        ////////////////////////////////////////////////////////////
         void Draw(Vertex[] vertices, PrimitiveType type);
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Draw primitives defined by an array of vertices
         /// </summary>
         /// <param name="vertices">Array of vertices to draw</param>
         /// <param name="type">Type of primitives to draw</param>
         /// <param name="states">Render states to use for drawing</param>
-        ////////////////////////////////////////////////////////////
         void Draw(Vertex[] vertices, PrimitiveType type, RenderStates states);
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Draw primitives defined by a sub-array of vertices, with default render states
         /// </summary>
@@ -190,10 +157,8 @@ namespace SFML.Graphics
         /// <param name="start">Index of the first vertex to draw in the array</param>
         /// <param name="count">Number of vertices to draw</param>
         /// <param name="type">Type of primitives to draw</param>
-        ////////////////////////////////////////////////////////////
         void Draw(Vertex[] vertices, uint start, uint count, PrimitiveType type);
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Draw primitives defined by a sub-array of vertices
         /// </summary>
@@ -202,10 +167,8 @@ namespace SFML.Graphics
         /// <param name="count">Number of vertices to draw</param>
         /// <param name="type">Type of primitives to draw</param>
         /// <param name="states">Render states to use for drawing</param>
-        ////////////////////////////////////////////////////////////
         void Draw(Vertex[] vertices, uint start, uint count, PrimitiveType type, RenderStates states);
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Save the current OpenGL render states and matrices.
         ///
@@ -234,20 +197,16 @@ namespace SFML.Graphics
         /// saved and restored). Take a look at the ResetGLStates
         /// function if you do so.
         /// </summary>
-        ////////////////////////////////////////////////////////////
         void PushGLStates();
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Restore the previously saved OpenGL render states and matrices.
         ///
         /// See the description of PushGLStates to get a detailed
         /// description of these functions.
         /// </summary>
-        ////////////////////////////////////////////////////////////
         void PopGLStates();
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Reset the internal OpenGL states so that the target is ready for drawing.
         ///
@@ -267,7 +226,6 @@ namespace SFML.Graphics
         /// glPopAttrib(...);
         /// // OpenGL code here...
         /// </summary>
-        ////////////////////////////////////////////////////////////
         void ResetGLStates();
     }
 }

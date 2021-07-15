@@ -6,77 +6,62 @@ using SFML.System;
 
 namespace SFML.Graphics
 {
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// Base class for textured shapes with outline
     /// </summary>
-    ////////////////////////////////////////////////////////////
     public abstract class Shape : Transformable, Drawable
     {
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Source texture of the shape
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public Texture Texture
         {
             get { return myTexture; }
             set { myTexture = value; sfShape_setTexture(CPointer, value != null ? value.CPointer : IntPtr.Zero, false); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Sub-rectangle of the texture that the shape will display
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public IntRect TextureRect
         {
             get { return sfShape_getTextureRect(CPointer); }
             set { sfShape_setTextureRect(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Fill color of the shape
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public Color FillColor
         {
             get { return sfShape_getFillColor(CPointer); }
             set { sfShape_setFillColor(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Outline color of the shape
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public Color OutlineColor
         {
             get { return sfShape_getOutlineColor(CPointer); }
             set { sfShape_setOutlineColor(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Thickness of the shape's outline
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public float OutlineThickness
         {
             get { return sfShape_getOutlineThickness(CPointer); }
             set { sfShape_setOutlineThickness(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Get the total number of points of the shape
         /// </summary>
         /// <returns>The total point count</returns>
-        ////////////////////////////////////////////////////////////
         public abstract uint GetPointCount();
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Get the position of a point
         ///
@@ -87,10 +72,8 @@ namespace SFML.Graphics
         /// </summary>
         /// <param name="index">Index of the point to get, in range [0 .. PointCount - 1]</param>
         /// <returns>index-th point of the shape</returns>
-        ////////////////////////////////////////////////////////////
         public abstract Vector2 GetPoint(uint index);
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Get the local bounding rectangle of the entity.
         ///
@@ -101,13 +84,11 @@ namespace SFML.Graphics
         /// entity in the entity's coordinate system.
         /// </summary>
         /// <returns>Local bounding rectangle of the entity</returns>
-        ////////////////////////////////////////////////////////////
         public FloatRect GetLocalBounds()
         {
             return sfShape_getLocalBounds(CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Get the global bounding rectangle of the entity.
         ///
@@ -118,7 +99,6 @@ namespace SFML.Graphics
         /// sprite in the global 2D world's coordinate system.
         /// </summary>
         /// <returns>Global bounding rectangle of the entity</returns>
-        ////////////////////////////////////////////////////////////
         public FloatRect GetGlobalBounds()
         {
             // we don't use the native getGlobalBounds function,
@@ -126,13 +106,11 @@ namespace SFML.Graphics
             return Transform.TransformRect(GetLocalBounds());
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Draw the shape to a render target
         /// </summary>
         /// <param name="target">Render target to draw to</param>
         /// <param name="states">Current render states</param>
-        ////////////////////////////////////////////////////////////
         public void Draw(RenderTarget target, RenderStates states)
         {
             states.Transform *= Transform;
@@ -148,11 +126,9 @@ namespace SFML.Graphics
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Default constructor
         /// </summary>
-        ////////////////////////////////////////////////////////////
         protected Shape() :
             base(IntPtr.Zero)
         {
@@ -161,12 +137,10 @@ namespace SFML.Graphics
             CPointer = sfShape_create(myGetPointCountCallback, myGetPointCallback, IntPtr.Zero);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct the shape from another shape
         /// </summary>
         /// <param name="copy">Shape to copy</param>
-        ////////////////////////////////////////////////////////////
         public Shape(Shape copy) :
             base(IntPtr.Zero)
         {
@@ -186,7 +160,6 @@ namespace SFML.Graphics
             OutlineThickness = copy.OutlineThickness;
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Recompute the internal geometry of the shape.
         ///
@@ -194,38 +167,31 @@ namespace SFML.Graphics
         /// the shape's points change (ie. the result of either
         /// PointCount or GetPoint is different).
         /// </summary>
-        ////////////////////////////////////////////////////////////
         protected void Update()
         {
             sfShape_update(CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Handle the destruction of the object
         /// </summary>
         /// <param name="disposing">Is the GC disposing the object, or is it an explicit call ?</param>
-        ////////////////////////////////////////////////////////////
         protected override void Destroy(bool disposing)
         {
             sfShape_destroy(CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Callback passed to the C API
         /// </summary>
-        ////////////////////////////////////////////////////////////
         private uint InternalGetPointCount(IntPtr userData)
         {
             return GetPointCount();
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Callback passed to the C API
         /// </summary>
-        ////////////////////////////////////////////////////////////
         private Vector2 InternalGetPoint(uint index, IntPtr userData)
         {
             return GetPoint(index);

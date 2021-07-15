@@ -4,22 +4,19 @@ using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Security;
 using SFML.System;
+using LoadingFailedException = SFML.Window.LoadingFailedException;
 
 namespace SFML.Audio
 {
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// Streamed music played from an audio file
     /// </summary>
-    ////////////////////////////////////////////////////////////
     public class Music : ObjectBase
     {
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Constructs a music from an audio file
         /// </summary>
         /// <param name="filename">Path of the music file to open</param>
-        ////////////////////////////////////////////////////////////
         public Music(string filename) :
             base(sfMusic_createFromFile(filename))
         {
@@ -29,12 +26,10 @@ namespace SFML.Audio
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Constructs a music from a custom stream
         /// </summary>
         /// <param name="stream">Source stream to read from</param>
-        ////////////////////////////////////////////////////////////
         public Music(Stream stream) :
             base(IntPtr.Zero)
         {
@@ -47,13 +42,11 @@ namespace SFML.Audio
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Constructs a music from an audio file in memory
         /// </summary>
         /// <param name="bytes">Byte array containing the file contents</param>
         /// <exception cref="LoadingFailedException" />
-        ////////////////////////////////////////////////////////////
         public Music(byte[] bytes) :
             base(IntPtr.Zero)
         {
@@ -72,7 +65,6 @@ namespace SFML.Audio
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Start or resume playing the audio stream.
         ///
@@ -82,26 +74,22 @@ namespace SFML.Audio
         /// This function uses its own thread so that it doesn't block
         /// the rest of the program while the stream is played.
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public void Play()
         {
             sfMusic_play(CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Pause the audio stream.
         ///
         /// This function pauses the stream if it was playing,
         /// otherwise (stream already paused or stopped) it has no effect.
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public void Pause()
         {
             sfMusic_pause(CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Stop playing the audio stream.
         ///
@@ -109,50 +97,41 @@ namespace SFML.Audio
         /// and does nothing if it was already stopped.
         /// It also resets the playing position (unlike Pause()).
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public void Stop()
         {
             sfMusic_stop(CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Sample rate of the music.
         ///
         /// The sample rate is the number of audio samples played per
         /// second. The higher, the better the quality.
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public uint SampleRate
         {
             get { return sfMusic_getSampleRate(CPointer); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Number of channels (1 = mono, 2 = stereo)
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public uint ChannelCount
         {
             get { return sfMusic_getChannelCount(CPointer); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Current status of the music (see SoundStatus enum)
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public SoundStatus Status
         {
             get { return sfMusic_getStatus(CPointer); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Total duration of the music
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public Time Duration
         {
             get
@@ -161,7 +140,6 @@ namespace SFML.Audio
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Flag if the music should loop after reaching the end.
         ///
@@ -170,14 +148,12 @@ namespace SFML.Audio
         /// Loop = false is set.
         /// The default looping state for music is false.
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public bool Loop
         {
             get { return sfMusic_getLoop(CPointer); }
             set { sfMusic_setLoop(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Pitch of the music.
         ///
@@ -187,28 +163,24 @@ namespace SFML.Audio
         /// is to modify the playing speed of the sound as well.
         /// The default value for the pitch is 1.
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public float Pitch
         {
             get { return sfMusic_getPitch(CPointer); }
             set { sfMusic_setPitch(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Volume of the music.
         ///
         /// The volume is a value between 0 (mute) and 100 (full volume).
         /// The default value for the volume is 100.
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public float Volume
         {
             get { return sfMusic_getVolume(CPointer); }
             set { sfMusic_setVolume(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// 3D position of the music in the audio scene.
         ///
@@ -216,14 +188,12 @@ namespace SFML.Audio
         /// spatialized.
         /// The default position of a sound is (0, 0, 0).
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public Vector3 Position
         {
             get { return sfMusic_getPosition(CPointer); }
             set { sfMusic_setPosition(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Make the music's position relative to the listener or absolute.
         ///
@@ -233,14 +203,12 @@ namespace SFML.Audio
         /// produced by the listener, or sounds attached to it.
         /// The default value is false (position is absolute).
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public bool RelativeToListener
         {
             get { return sfMusic_isRelativeToListener(CPointer); }
             set { sfMusic_setRelativeToListener(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Minimum distance of the music.
         ///
@@ -251,14 +219,12 @@ namespace SFML.Audio
         /// of the listener") is an invalid value and is forbidden.
         /// The default value of the minimum distance is 1.
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public float MinDistance
         {
             get { return sfMusic_getMinDistance(CPointer); }
             set { sfMusic_setMinDistance(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Attenuation factor of the music.
         ///
@@ -271,28 +237,24 @@ namespace SFML.Audio
         /// very quickly as it gets further from the listener.
         /// The default value of the attenuation is 1.
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public float Attenuation
         {
             get { return sfMusic_getAttenuation(CPointer); }
             set { sfMusic_setAttenuation(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Current playing position of the music.
         ///
         /// The playing position can be changed when the music is
         /// either paused or playing.
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public Time PlayingOffset
         {
             get { return sfMusic_getPlayingOffset(CPointer); }
             set { sfMusic_setPlayingOffset(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Current loop points of the music.
         ///
@@ -303,19 +265,16 @@ namespace SFML.Audio
         /// to the valid internal samples of this Music if they are later
         /// set again.
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public TimeSpan LoopPoints
         {
             get { return sfMusic_getLoopPoints(CPointer); }
             set { sfMusic_setLoopPoints(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Provide a string describing the object
         /// </summary>
         /// <returns>String description of the object</returns>
-        ////////////////////////////////////////////////////////////
         public override string ToString()
         {
             return "[Music]" +
@@ -334,12 +293,10 @@ namespace SFML.Audio
                    " LoopPoints(" + LoopPoints + ")";
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Handle the destruction of the object
         /// </summary>
         /// <param name="disposing">Is the GC disposing the object, or is it an explicit call ?</param>
-        ////////////////////////////////////////////////////////////
         protected override void Destroy(bool disposing)
         {
             if (disposing)

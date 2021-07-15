@@ -3,17 +3,15 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Security;
 using SFML.System;
+using LoadingFailedException = SFML.Window.LoadingFailedException;
 
 namespace SFML.Audio
 {
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// Storage for audio samples defining a sound
     /// </summary>
-    ////////////////////////////////////////////////////////////
     public class SoundBuffer : ObjectBase
     {
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct a sound buffer from a file
         /// 
@@ -23,7 +21,6 @@ namespace SFML.Audio
         /// </summary>
         /// <param name="filename">Path of the sound file to load</param>
         /// <exception cref="LoadingFailedException" />
-        ////////////////////////////////////////////////////////////
         public SoundBuffer(string filename) :
             base(sfSoundBuffer_createFromFile(filename))
         {
@@ -33,7 +30,6 @@ namespace SFML.Audio
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct a sound buffer from a custom stream.
         ///
@@ -43,7 +39,6 @@ namespace SFML.Audio
         /// </summary>
         /// <param name="stream">Source stream to read from</param>
         /// <exception cref="LoadingFailedException" />
-        ////////////////////////////////////////////////////////////
         public SoundBuffer(Stream stream) :
             base(IntPtr.Zero)
         {
@@ -58,7 +53,6 @@ namespace SFML.Audio
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct a sound buffer from a file in memory.
         /// 
@@ -68,7 +62,6 @@ namespace SFML.Audio
         /// </summary>
         /// <param name="bytes">Byte array containing the file contents</param>
         /// <exception cref="LoadingFailedException" />
-        ////////////////////////////////////////////////////////////
         public SoundBuffer(byte[] bytes) :
             base(IntPtr.Zero)
         {
@@ -87,7 +80,6 @@ namespace SFML.Audio
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct a sound buffer from an array of samples
         /// </summary>
@@ -95,7 +87,6 @@ namespace SFML.Audio
         /// <param name="channelCount">Channel count</param>
         /// <param name="sampleRate">Sample rate</param>
         /// <exception cref="LoadingFailedException" />
-        ////////////////////////////////////////////////////////////
         public SoundBuffer(short[] samples, uint channelCount, uint sampleRate) :
             base(IntPtr.Zero)
         {
@@ -113,18 +104,15 @@ namespace SFML.Audio
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct a sound buffer from another sound buffer
         /// </summary>
         /// <param name="copy">Sound buffer to copy</param>
-        ////////////////////////////////////////////////////////////
         public SoundBuffer(SoundBuffer copy) :
             base(sfSoundBuffer_copy(copy.CPointer))
         {
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Save the sound buffer to an audio file.
         ///
@@ -134,53 +122,44 @@ namespace SFML.Audio
         /// </summary>
         /// <param name="filename">Path of the sound file to write</param>
         /// <returns>True if saving has been successful</returns>
-        ////////////////////////////////////////////////////////////
         public bool SaveToFile(string filename)
         {
             return sfSoundBuffer_saveToFile(CPointer, filename);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Sample rate of the sound buffer.
         ///
         /// The sample rate is the number of audio samples played per
         /// second. The higher, the better the quality.
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public uint SampleRate
         {
             get { return sfSoundBuffer_getSampleRate(CPointer); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Number of channels (1 = mono, 2 = stereo)
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public uint ChannelCount
         {
             get { return sfSoundBuffer_getChannelCount(CPointer); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Total duration of the buffer
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public Time Duration
         {
             get { return sfSoundBuffer_getDuration(CPointer); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Array of audio samples stored in the buffer.
         ///
         /// The format of the returned samples is 16 bits signed integer
         /// (sf::Int16).
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public short[] Samples
         {
             get
@@ -191,12 +170,10 @@ namespace SFML.Audio
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Provide a string describing the object
         /// </summary>
         /// <returns>String description of the object</returns>
-        ////////////////////////////////////////////////////////////
         public override string ToString()
         {
             return "[SoundBuffer]" +
@@ -205,12 +182,10 @@ namespace SFML.Audio
                    " Duration(" + Duration + ")";
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Handle the destruction of the object
         /// </summary>
         /// <param name="disposing">Is the GC disposing the object, or is it an explicit call ?</param>
-        ////////////////////////////////////////////////////////////
         protected override void Destroy(bool disposing)
         {
             sfSoundBuffer_destroy(CPointer);

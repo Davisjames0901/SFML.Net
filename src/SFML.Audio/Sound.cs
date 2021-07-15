@@ -6,11 +6,9 @@ using SFML.System;
 
 namespace SFML.Audio
 {
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// Enumeration of all possible sound states
     /// </summary>
-    ////////////////////////////////////////////////////////////
     public enum SoundStatus
     {
         /// <summary>Sound is not playing</summary>
@@ -23,48 +21,39 @@ namespace SFML.Audio
         Playing
     }
 
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// Regular sound that can be played in the audio environment
     /// </summary>
-    ////////////////////////////////////////////////////////////
     public class Sound : ObjectBase
     {
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Default constructor (invalid sound)
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public Sound() :
             base(sfSound_create())
         {
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct the sound with a buffer
         /// </summary>
         /// <param name="buffer">Sound buffer containing the audio data to play with the sound</param>
-        ////////////////////////////////////////////////////////////
         public Sound(SoundBuffer buffer) :
             base(sfSound_create())
         {
             SoundBuffer = buffer;
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct the sound from another source
         /// </summary>
         /// <param name="copy">Sound to copy</param>
-        ////////////////////////////////////////////////////////////
         public Sound(Sound copy) :
             base(sfSound_copy(copy.CPointer))
         {
             SoundBuffer = copy.SoundBuffer;
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Start or resume playing the sound.
         ///
@@ -74,26 +63,22 @@ namespace SFML.Audio
         /// This function uses its own thread so that it doesn't block
         /// the rest of the program while the sound is played.
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public void Play()
         {
             sfSound_play(CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Pause the sound.
         ///
         /// This function pauses the sound if it was playing,
         /// otherwise (sound already paused or stopped) it has no effect.
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public void Pause()
         {
             sfSound_pause(CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Stop playing the sound.
         ///
@@ -101,13 +86,11 @@ namespace SFML.Audio
         /// and does nothing if it was already stopped.
         /// It also resets the playing position (unlike pause()).
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public void Stop()
         {
             sfSound_stop(CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Buffer containing the sound data to play through the sound.
         ///
@@ -115,24 +98,20 @@ namespace SFML.Audio
         /// thus the SoundBuffer instance must remain alive as long
         /// as it is attached to the sound.
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public SoundBuffer SoundBuffer
         {
             get { return myBuffer; }
             set { myBuffer = value; sfSound_setBuffer(CPointer, value != null ? value.CPointer : IntPtr.Zero); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Current status of the sound (see SoundStatus enum)
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public SoundStatus Status
         {
             get { return sfSound_getStatus(CPointer); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Flag if the sound should loop after reaching the end.
         ///
@@ -141,14 +120,12 @@ namespace SFML.Audio
         /// Loop = false is set.
         /// The default looping state for sounds is false.
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public bool Loop
         {
             get { return sfSound_getLoop(CPointer); }
             set { sfSound_setLoop(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Pitch of the sound.
         ///
@@ -158,42 +135,36 @@ namespace SFML.Audio
         /// is to modify the playing speed of the sound as well.
         /// The default value for the pitch is 1.
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public float Pitch
         {
             get { return sfSound_getPitch(CPointer); }
             set { sfSound_setPitch(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Volume of the sound.
         ///
         /// The volume is a value between 0 (mute) and 100 (full volume).
         /// The default value for the volume is 100.
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public float Volume
         {
             get { return sfSound_getVolume(CPointer); }
             set { sfSound_setVolume(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Current playing position of the sound.
         ///
         /// The playing position can be changed when the sound is
         /// either paused or playing.
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public Time PlayingOffset
         {
             get { return sfSound_getPlayingOffset(CPointer); }
             set { sfSound_setPlayingOffset(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// 3D position of the sound in the audio scene.
         ///
@@ -201,14 +172,12 @@ namespace SFML.Audio
         /// spatialized.
         /// The default position of a sound is (0, 0, 0).
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public Vector3 Position
         {
             get { return sfSound_getPosition(CPointer); }
             set { sfSound_setPosition(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Make the music's position relative to the listener or absolute.
         ///
@@ -218,14 +187,12 @@ namespace SFML.Audio
         /// produced by the listener, or sounds attached to it.
         /// The default value is false (position is absolute).
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public bool RelativeToListener
         {
             get { return sfSound_isRelativeToListener(CPointer); }
             set { sfSound_setRelativeToListener(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Minimum distance of the sound.
         ///
@@ -236,14 +203,12 @@ namespace SFML.Audio
         /// of the listener") is an invalid value and is forbidden.
         /// The default value of the minimum distance is 1.
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public float MinDistance
         {
             get { return sfSound_getMinDistance(CPointer); }
             set { sfSound_setMinDistance(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Attenuation factor of the music.
         ///
@@ -256,19 +221,16 @@ namespace SFML.Audio
         /// very quickly as it gets further from the listener.
         /// The default value of the attenuation is 1.
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public float Attenuation
         {
             get { return sfSound_getAttenuation(CPointer); }
             set { sfSound_setAttenuation(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Provide a string describing the object
         /// </summary>
         /// <returns>String description of the object</returns>
-        ////////////////////////////////////////////////////////////
         public override string ToString()
         {
             return "[Sound]" +
@@ -284,12 +246,10 @@ namespace SFML.Audio
                    " SoundBuffer(" + SoundBuffer + ")";
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Handle the destruction of the object
         /// </summary>
         /// <param name="disposing">Is the GC disposing the object, or is it an explicit call ?</param>
-        ////////////////////////////////////////////////////////////
         protected override void Destroy(bool disposing)
         {
             sfSound_destroy(CPointer);

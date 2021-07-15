@@ -7,21 +7,17 @@ using SFML.System;
 
 namespace SFML.Graphics
 {
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// This class defines a graphical 2D text, that can be drawn on screen
     /// </summary>
     /// <remarks>
     /// See also the note on coordinates and undistorted rendering in SFML.Graphics.Transformable.
     /// </remarks>
-    ////////////////////////////////////////////////////////////
     public class Text : Transformable, Drawable
     {
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Enumerate the string drawing styles
         /// </summary>
-        ////////////////////////////////////////////////////////////
         [Flags]
         public enum Styles
         {
@@ -41,36 +37,30 @@ namespace SFML.Graphics
             StrikeThrough = 1 << 3
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Default constructor
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public Text() :
             this("", null)
         {
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct the text from a string and a font
         /// </summary>
         /// <param name="str">String to display</param>
         /// <param name="font">Font to use</param>
-        ////////////////////////////////////////////////////////////
         public Text(string str, Font font) :
             this(str, font, 30)
         {
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct the text from a string, font and size
         /// </summary>
         /// <param name="str">String to display</param>
         /// <param name="font">Font to use</param>
         /// <param name="characterSize">Base characters size</param>
-        ////////////////////////////////////////////////////////////
         public Text(string str, Font font, uint characterSize) :
             base(sfText_create())
         {
@@ -79,12 +69,10 @@ namespace SFML.Graphics
             CharacterSize = characterSize;
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct the text from another text
         /// </summary>
         /// <param name="copy">Text to copy</param>
-        ////////////////////////////////////////////////////////////
         public Text(Text copy) :
             base(sfText_copy(copy.CPointer))
         {
@@ -96,7 +84,6 @@ namespace SFML.Graphics
             Font = copy.Font;
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Fill color of the object
         /// </summary>
@@ -108,7 +95,6 @@ namespace SFML.Graphics
         /// Setting the fill color to a transparent color with an outline
         /// will cause the outline to be displayed in the fill area of the text.
         /// </remarks>
-        ////////////////////////////////////////////////////////////
         [Obsolete]
         public Color Color
         {
@@ -116,7 +102,6 @@ namespace SFML.Graphics
             set { sfText_setFillColor(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Fill color of the object
         /// </summary>
@@ -126,14 +111,12 @@ namespace SFML.Graphics
         /// Setting the fill color to a transparent color with an outline
         /// will cause the outline to be displayed in the fill area of the text.
         /// </remarks>
-        ////////////////////////////////////////////////////////////
         public Color FillColor
         {
             get { return sfText_getFillColor(CPointer); }
             set { sfText_setFillColor(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Outline color of the object
         /// </summary>
@@ -141,14 +124,12 @@ namespace SFML.Graphics
         /// <remarks>
         /// By default, the text's outline color is opaque black.
         /// </remarks>
-        ////////////////////////////////////////////////////////////
         public Color OutlineColor
         {
             get { return sfText_getOutlineColor(CPointer); }
             set { sfText_setOutlineColor(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Thickness of the object's outline
         /// </summary>
@@ -158,18 +139,15 @@ namespace SFML.Graphics
         /// <para>Be aware that using a negative value for the outline
         /// thickness will cause distorted rendering.</para>
         /// </remarks>
-        ////////////////////////////////////////////////////////////
         public float OutlineThickness
         {
             get { return sfText_getOutlineThickness(CPointer); }
             set { sfText_setOutlineThickness(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// String which is displayed
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public string DisplayedString
         {
             get
@@ -211,62 +189,51 @@ namespace SFML.Graphics
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Font used to display the text
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public Font Font
         {
             get { return myFont; }
             set { myFont = value; sfText_setFont(CPointer, value != null ? value.CPointer : IntPtr.Zero); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Base size of characters
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public uint CharacterSize
         {
             get { return sfText_getCharacterSize(CPointer); }
             set { sfText_setCharacterSize(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Size of the letter spacing factor
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public float LetterSpacing
         {
             get { return sfText_getLetterSpacing(CPointer); }
             set { sfText_setLetterSpacing(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Size of the line spacing factor
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public float LineSpacing
         {
             get { return sfText_getLineSpacing(CPointer); }
             set { sfText_setLineSpacing(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Style of the text (see Styles enum)
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public Styles Style
         {
             get { return sfText_getStyle(CPointer); }
             set { sfText_setStyle(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Return the visual position of the Index-th character of the text,
         /// in coordinates relative to the text
@@ -274,13 +241,11 @@ namespace SFML.Graphics
         /// </summary>
         /// <param name="index">Index of the character</param>
         /// <returns>Position of the Index-th character (end of text if Index is out of range)</returns>
-        ////////////////////////////////////////////////////////////
         public Vector2 FindCharacterPos(uint index)
         {
             return sfText_findCharacterPos(CPointer, index);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Get the local bounding rectangle of the entity.
         ///
@@ -291,13 +256,11 @@ namespace SFML.Graphics
         /// entity in the entity's coordinate system.
         /// </summary>
         /// <returns>Local bounding rectangle of the entity</returns>
-        ////////////////////////////////////////////////////////////
         public FloatRect GetLocalBounds()
         {
             return sfText_getLocalBounds(CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Get the global bounding rectangle of the entity.
         ///
@@ -308,7 +271,6 @@ namespace SFML.Graphics
         /// sprite in the global 2D world's coordinate system.
         /// </summary>
         /// <returns>Global bounding rectangle of the entity</returns>
-        ////////////////////////////////////////////////////////////
         public FloatRect GetGlobalBounds()
         {
             // we don't use the native getGlobalBounds function,
@@ -316,12 +278,10 @@ namespace SFML.Graphics
             return Transform.TransformRect(GetLocalBounds());
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Provide a string describing the object
         /// </summary>
         /// <returns>String description of the object</returns>
-        ////////////////////////////////////////////////////////////
         public override string ToString()
         {
             return "[Text]" +
@@ -334,13 +294,11 @@ namespace SFML.Graphics
                    " Style(" + Style + ")";
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Draw the text to a render target
         /// </summary>
         /// <param name="target">Render target to draw to</param>
         /// <param name="states">Current render states</param>
-        ////////////////////////////////////////////////////////////
         public void Draw(RenderTarget target, RenderStates states)
         {
             states.Transform *= Transform;
@@ -356,12 +314,10 @@ namespace SFML.Graphics
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Handle the destruction of the object
         /// </summary>
         /// <param name="disposing">Is the GC disposing the object, or is it an explicit call ?</param>
-        ////////////////////////////////////////////////////////////
         protected override void Destroy(bool disposing)
         {
             sfText_destroy(CPointer);

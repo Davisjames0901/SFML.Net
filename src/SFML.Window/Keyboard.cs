@@ -5,18 +5,14 @@ using SFML.System;
 
 namespace SFML.Window
 {
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// Give access to the real-time state of the keyboard
     /// </summary>
-    ////////////////////////////////////////////////////////////
     public static class Keyboard
     {
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Key codes
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public enum Key
         {
             /// <summary>Unhandled key</summary>
@@ -245,25 +241,21 @@ namespace SFML.Window
             SemiColon = Semicolon
         };
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Check if a key is pressed
         /// </summary>
         /// <param name="key">Key to check</param>
         /// <returns>True if the key is pressed, false otherwise</returns>
-        ////////////////////////////////////////////////////////////
         public static bool IsKeyPressed(Key key)
         {
             return sfKeyboard_isKeyPressed(key);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Enable/Disable visibility of the virtual keyboard
         /// </summary>
         /// <remarks>Applicable only on Android and iOS</remarks>
         /// <param name="visible">Whether to make the virtual keyboard visible (true) or not (false)</param>
-        ////////////////////////////////////////////////////////////
         public static void SetVirtualKeyboardVisible(bool visible)
         {
             sfKeyboard_setVirtualKeyboardVisible(visible);

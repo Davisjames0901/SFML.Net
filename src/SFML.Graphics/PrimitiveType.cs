@@ -2,7 +2,6 @@ using System;
 
 namespace SFML.Graphics
 {
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// Types of primitives that a VertexArray can render.
     ///
@@ -10,7 +9,6 @@ namespace SFML.Graphics
     /// will always be 1 pixel, regardless the current transform
     /// and view.
     /// </summary>
-    ////////////////////////////////////////////////////////////
     public enum PrimitiveType
     {
         /// List of individual points

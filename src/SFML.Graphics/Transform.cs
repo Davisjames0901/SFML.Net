@@ -6,15 +6,12 @@ using SFML.System;
 
 namespace SFML.Graphics
 {
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// Define a 3x3 transform matrix
     /// </summary>
-    ////////////////////////////////////////////////////////////
     [StructLayout(LayoutKind.Sequential)]
     public struct Transform
     {
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct a transform from a 3x3 matrix
         /// </summary>
@@ -27,7 +24,6 @@ namespace SFML.Graphics
         /// <param name="a20">Element (2, 0) of the matrix</param>
         /// <param name="a21">Element (2, 1) of the matrix</param>
         /// <param name="a22">Element (2, 2) of the matrix</param>
-        ////////////////////////////////////////////////////////////
         public Transform(float a00, float a01, float a02,
                          float a10, float a11, float a12,
                          float a20, float a21, float a22)
@@ -43,7 +39,6 @@ namespace SFML.Graphics
             m22 = a22;
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Return the inverse of the transform.
         ///
@@ -51,39 +46,33 @@ namespace SFML.Graphics
         /// is returned.
         /// </summary>
         /// <returns>A new transform which is the inverse of self</returns>
-        ////////////////////////////////////////////////////////////
         public Transform GetInverse()
         {
             return sfTransform_getInverse(ref this);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Transform a 2D point.
         /// </summary>
         /// <param name="x">X coordinate of the point to transform</param>
         /// <param name="y">Y coordinate of the point to transform</param>
         /// <returns>Transformed point</returns>
-        ////////////////////////////////////////////////////////////
         public Vector2 TransformPoint(float x, float y)
         {
             return new Vector2(m00 * x + m01 * y + m02,
                 m10 * x + m11 * y + m12);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Transform a 2D point.
         /// </summary>
         /// <param name="point">Point to transform</param>
         /// <returns>Transformed point</returns>
-        ////////////////////////////////////////////////////////////
         public Vector2 TransformPoint(Vector2 point)
         {
             return TransformPoint(point.X, point.Y);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Transform a rectangle.
         ///
@@ -95,13 +84,11 @@ namespace SFML.Graphics
         /// </summary>
         /// <param name="rectangle">Rectangle to transform</param>
         /// <returns>Transformed rectangle</returns>
-        ////////////////////////////////////////////////////////////
         public FloatRect TransformRect(FloatRect rectangle)
         {
             return sfTransform_transformRect(ref this, rectangle);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Combine the current transform with another one.
         ///
@@ -110,47 +97,39 @@ namespace SFML.Graphics
         /// equivalent to a matrix multiplication.
         /// </summary>
         /// <param name="transform">Transform to combine to this transform</param>
-        ////////////////////////////////////////////////////////////
         public void Combine(Transform transform)
         {
             sfTransform_combine(ref this, ref transform);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Combine the current transform with a translation.
         /// </summary>
         /// <param name="x">Offset to apply on X axis</param>
         /// <param name="y">Offset to apply on Y axis</param>
-        ////////////////////////////////////////////////////////////
         public void Translate(float x, float y)
         {
             sfTransform_translate(ref this, x, y);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Combine the current transform with a translation.
         /// </summary>
         /// <param name="offset">Translation offset to apply</param>
-        ////////////////////////////////////////////////////////////
         public void Translate(Vector2 offset)
         {
             Translate(offset.X, offset.Y);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Combine the current transform with a rotation.
         /// </summary>
         /// <param name="angle">Rotation angle, in degrees</param>
-        ////////////////////////////////////////////////////////////
         public void Rotate(float angle)
         {
             sfTransform_rotate(ref this, angle);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Combine the current transform with a rotation.
         ///
@@ -162,13 +141,11 @@ namespace SFML.Graphics
         /// <param name="angle">Rotation angle, in degrees</param>
         /// <param name="centerX">X coordinate of the center of rotation</param>
         /// <param name="centerY">Y coordinate of the center of rotation</param>
-        ////////////////////////////////////////////////////////////
         public void Rotate(float angle, float centerX, float centerY)
         {
             sfTransform_rotateWithCenter(ref this, angle, centerX, centerY);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Combine the current transform with a rotation.
         ///
@@ -179,25 +156,21 @@ namespace SFML.Graphics
         /// </summary>
         /// <param name="angle">Rotation angle, in degrees</param>
         /// <param name="center">Center of rotation</param>
-        ////////////////////////////////////////////////////////////
         public void Rotate(float angle, Vector2 center)
         {
             Rotate(angle, center.X, center.Y);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Combine the current transform with a scaling.
         /// </summary>
         /// <param name="scaleX">Scaling factor on the X axis</param>
         /// <param name="scaleY">Scaling factor on the Y axis</param>
-        ////////////////////////////////////////////////////////////
         public void Scale(float scaleX, float scaleY)
         {
             sfTransform_scale(ref this, scaleX, scaleY);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Combine the current transform with a scaling.
         ///
@@ -210,24 +183,20 @@ namespace SFML.Graphics
         /// <param name="scaleY">Scaling factor on Y axis</param>
         /// <param name="centerX">X coordinate of the center of scaling</param>
         /// <param name="centerY">Y coordinate of the center of scaling</param>
-        ////////////////////////////////////////////////////////////
         public void Scale(float scaleX, float scaleY, float centerX, float centerY)
         {
             sfTransform_scaleWithCenter(ref this, scaleX, scaleY, centerX, centerY);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Combine the current transform with a scaling.
         /// </summary>
         /// <param name="factors">Scaling factors</param>
-        ////////////////////////////////////////////////////////////
         public void Scale(Vector2 factors)
         {
             Scale(factors.X, factors.Y);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Combine the current transform with a scaling.
         ///
@@ -238,22 +207,18 @@ namespace SFML.Graphics
         /// </summary>
         /// <param name="factors">Scaling factors</param>
         /// <param name="center">Center of scaling</param>
-        ////////////////////////////////////////////////////////////
         public void Scale(Vector2 factors, Vector2 center)
         {
             Scale(factors.X, factors.Y, center.X, center.Y);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Compare Transform and object and checks if they are equal
         /// </summary>
         /// <param name="obj">Object to check</param>
         /// <returns>Object and transform are equal</returns>
-        ////////////////////////////////////////////////////////////
         public override bool Equals(object obj) => (obj is Transform) && Equals((Transform)obj);
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Compare two transforms for equality
         ///
@@ -262,18 +227,15 @@ namespace SFML.Graphics
         /// </summary>
         /// <param name="transform">Transform to check</param>
         /// <returns>Transforms are equal</returns>
-        ////////////////////////////////////////////////////////////
         public bool Equals(Transform transform)
         {
             return sfTransform_equal(ref this, ref transform);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Generates a hash code by XORing together the internal 3x3 matrix.
         /// </summary>
         /// <returns>XOR'd Hash of floats contained.</returns>
-        ////////////////////////////////////////////////////////////
         public override int GetHashCode()
         {
             var hash0 = m00.GetHashCode() ^ m01.GetHashCode() ^ m02.GetHashCode();
@@ -282,7 +244,6 @@ namespace SFML.Graphics
             return hash0 ^ hash1 ^ hash2;
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Overload of binary operator * to combine two transforms.
         /// This call is equivalent to calling new Transform(left).Combine(right).
@@ -290,14 +251,12 @@ namespace SFML.Graphics
         /// <param name="left">Left operand (the first transform)</param>
         /// <param name="right">Right operand (the second transform)</param>
         /// <returns>New combined transform</returns>
-        ////////////////////////////////////////////////////////////
         public static Transform operator *(Transform left, Transform right)
         {
             left.Combine(right);
             return left;
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Overload of binary operator * to transform a point.
         /// This call is equivalent to calling left.TransformPoint(right).
@@ -305,15 +264,12 @@ namespace SFML.Graphics
         /// <param name="left">Left operand (the transform)</param>
         /// <param name="right">Right operand (the point to transform)</param>
         /// <returns>New transformed point</returns>
-        ////////////////////////////////////////////////////////////
         public static Vector2 operator *(Transform left, Vector2 right)
         {
             return left.TransformPoint(right);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>The identity transform (does nothing)</summary>
-        ////////////////////////////////////////////////////////////
         public static Transform Identity
         {
             get
@@ -324,12 +280,10 @@ namespace SFML.Graphics
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Provide a string describing the object
         /// </summary>
         /// <returns>String description of the object</returns>
-        ////////////////////////////////////////////////////////////
         public override string ToString()
         {
             return string.Format("[Transform]" +

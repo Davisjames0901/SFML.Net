@@ -2,19 +2,15 @@ using System;
 
 namespace SFML.Window
 {
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// Keyboard event parameters
     /// </summary>
-    ////////////////////////////////////////////////////////////
     public class KeyEventArgs : EventArgs
     {
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct the key arguments from a key event
         /// </summary>
         /// <param name="e">Key event</param>
-        ////////////////////////////////////////////////////////////
         public KeyEventArgs(KeyEvent e)
         {
             Code = e.Code;
@@ -24,12 +20,10 @@ namespace SFML.Window
             System = e.System != 0;
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Provide a string describing the object
         /// </summary>
         /// <returns>String description of the object</returns>
-        ////////////////////////////////////////////////////////////
         public override string ToString()
         {
             return "[KeyEventArgs]" +
@@ -56,30 +50,24 @@ namespace SFML.Window
         public bool System;
     }
 
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// Text event parameters
     /// </summary>
-    ////////////////////////////////////////////////////////////
     public class TextEventArgs : EventArgs
     {
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct the text arguments from a text event
         /// </summary>
         /// <param name="e">Text event</param>
-        ////////////////////////////////////////////////////////////
         public TextEventArgs(TextEvent e)
         {
             Unicode = Char.ConvertFromUtf32((int)e.Unicode);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Provide a string describing the object
         /// </summary>
         /// <returns>String description of the object</returns>
-        ////////////////////////////////////////////////////////////
         public override string ToString()
         {
             return "[TextEventArgs]" +
@@ -90,31 +78,25 @@ namespace SFML.Window
         public string Unicode;
     }
 
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// Mouse move event parameters
     /// </summary>
-    ////////////////////////////////////////////////////////////
     public class MouseMoveEventArgs : EventArgs
     {
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct the mouse move arguments from a mouse move event
         /// </summary>
         /// <param name="e">Mouse move event</param>
-        ////////////////////////////////////////////////////////////
         public MouseMoveEventArgs(MouseMoveEvent e)
         {
             X = e.X;
             Y = e.Y;
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Provide a string describing the object
         /// </summary>
         /// <returns>String description of the object</returns>
-        ////////////////////////////////////////////////////////////
         public override string ToString()
         {
             return "[MouseMoveEventArgs]" +
@@ -129,19 +111,15 @@ namespace SFML.Window
         public int Y;
     }
 
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// Mouse buttons event parameters
     /// </summary>
-    ////////////////////////////////////////////////////////////
     public class MouseButtonEventArgs : EventArgs
     {
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct the mouse button arguments from a mouse button event
         /// </summary>
         /// <param name="e">Mouse button event</param>
-        ////////////////////////////////////////////////////////////
         public MouseButtonEventArgs(MouseButtonEvent e)
         {
             Button = e.Button;
@@ -149,12 +127,10 @@ namespace SFML.Window
             Y = e.Y;
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Provide a string describing the object
         /// </summary>
         /// <returns>String description of the object</returns>
-        ////////////////////////////////////////////////////////////
         public override string ToString()
         {
             return "[MouseButtonEventArgs]" +
@@ -173,20 +149,16 @@ namespace SFML.Window
         public int Y;
     }
 
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// Mouse wheel event parameters
     /// </summary>
-    ////////////////////////////////////////////////////////////
     [Obsolete("MouseWheelEventArgs is deprecated, please use MouseWheelScrollEventArgs instead")]
     public class MouseWheelEventArgs : EventArgs
     {
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct the mouse wheel arguments from a mouse wheel event
         /// </summary>
         /// <param name="e">Mouse wheel event</param>
-        ////////////////////////////////////////////////////////////
         public MouseWheelEventArgs(MouseWheelEvent e)
         {
             Delta = e.Delta;
@@ -194,12 +166,10 @@ namespace SFML.Window
             Y = e.Y;
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Provide a string describing the object
         /// </summary>
         /// <returns>String description of the object</returns>
-        ////////////////////////////////////////////////////////////
         public override string ToString()
         {
             return "[MouseWheelEventArgs]" +
@@ -218,19 +188,15 @@ namespace SFML.Window
         public int Y;
     }
 
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// Mouse wheel scroll event parameters
     /// </summary>
-    ////////////////////////////////////////////////////////////
     public class MouseWheelScrollEventArgs : EventArgs
     {
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct the mouse wheel scroll arguments from a mouse wheel scroll event
         /// </summary>
         /// <param name="e">Mouse wheel scroll event</param>
-        ////////////////////////////////////////////////////////////
         public MouseWheelScrollEventArgs(MouseWheelScrollEvent e)
         {
             Delta = e.Delta;
@@ -239,12 +205,10 @@ namespace SFML.Window
             Y = e.Y;
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Provide a string describing the object
         /// </summary>
         /// <returns>String description of the object</returns>
-        ////////////////////////////////////////////////////////////
         public override string ToString()
         {
             return "[MouseWheelScrollEventArgs]" +
@@ -267,19 +231,15 @@ namespace SFML.Window
         public int Y;
     }
 
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// Joystick axis move event parameters
     /// </summary>
-    ////////////////////////////////////////////////////////////
     public class JoystickMoveEventArgs : EventArgs
     {
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct the joystick move arguments from a joystick move event
         /// </summary>
         /// <param name="e">Joystick move event</param>
-        ////////////////////////////////////////////////////////////
         public JoystickMoveEventArgs(JoystickMoveEvent e)
         {
             JoystickId = e.JoystickId;
@@ -287,12 +247,10 @@ namespace SFML.Window
             Position = e.Position;
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Provide a string describing the object
         /// </summary>
         /// <returns>String description of the object</returns>
-        ////////////////////////////////////////////////////////////
         public override string ToString()
         {
             return "[JoystickMoveEventArgs]" +
@@ -311,31 +269,25 @@ namespace SFML.Window
         public float Position;
     }
 
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// Joystick buttons event parameters
     /// </summary>
-    ////////////////////////////////////////////////////////////
     public class JoystickButtonEventArgs : EventArgs
     {
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct the joystick button arguments from a joystick button event
         /// </summary>
         /// <param name="e">Joystick button event</param>
-        ////////////////////////////////////////////////////////////
         public JoystickButtonEventArgs(JoystickButtonEvent e)
         {
             JoystickId = e.JoystickId;
             Button = e.Button;
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Provide a string describing the object
         /// </summary>
         /// <returns>String description of the object</returns>
-        ////////////////////////////////////////////////////////////
         public override string ToString()
         {
             return "[JoystickButtonEventArgs]" +
@@ -350,30 +302,24 @@ namespace SFML.Window
         public uint Button;
     }
 
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// Joystick connection/disconnection event parameters
     /// </summary>
-    ////////////////////////////////////////////////////////////
     public class JoystickConnectEventArgs : EventArgs
     {
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct the joystick connect arguments from a joystick connect event
         /// </summary>
         /// <param name="e">Joystick button event</param>
-        ////////////////////////////////////////////////////////////
         public JoystickConnectEventArgs(JoystickConnectEvent e)
         {
             JoystickId = e.JoystickId;
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Provide a string describing the object
         /// </summary>
         /// <returns>String description of the object</returns>
-        ////////////////////////////////////////////////////////////
         public override string ToString()
         {
             return "[JoystickConnectEventArgs]" +
@@ -384,31 +330,25 @@ namespace SFML.Window
         public uint JoystickId;
     }
 
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// Size event parameters
     /// </summary>
-    ////////////////////////////////////////////////////////////
     public class SizeEventArgs : EventArgs
     {
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct the size arguments from a size event
         /// </summary>
         /// <param name="e">Size event</param>
-        ////////////////////////////////////////////////////////////
         public SizeEventArgs(SizeEvent e)
         {
             Width = e.Width;
             Height = e.Height;
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Provide a string describing the object
         /// </summary>
         /// <returns>String description of the object</returns>
-        ////////////////////////////////////////////////////////////
         public override string ToString()
         {
             return "[SizeEventArgs]" +
@@ -423,19 +363,15 @@ namespace SFML.Window
         public uint Height;
     }
 
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// Touch event parameters
     /// </summary>
-    ////////////////////////////////////////////////////////////
     public class TouchEventArgs : EventArgs
     {
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct the touch arguments from a touch event
         /// </summary>
         /// <param name="e">Touch event</param>
-        ////////////////////////////////////////////////////////////
         public TouchEventArgs(TouchEvent e)
         {
             Finger = e.Finger;
@@ -443,12 +379,10 @@ namespace SFML.Window
             Y = e.Y;
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Provide a string describing the object
         /// </summary>
         /// <returns>String description of the object</returns>
-        ////////////////////////////////////////////////////////////
         public override string ToString()
         {
             return "[TouchEventArgs]" +
@@ -467,19 +401,15 @@ namespace SFML.Window
         public int Y;
     }
 
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// Sensor event parameters
     /// </summary>
-    ////////////////////////////////////////////////////////////
     public class SensorEventArgs : EventArgs
     {
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct the sensor arguments from a sensor event
         /// </summary>
         /// <param name="e">Sensor event</param>
-        ////////////////////////////////////////////////////////////
         public SensorEventArgs(SensorEvent e)
         {
             Type = e.Type;
@@ -488,12 +418,10 @@ namespace SFML.Window
             Z = e.Z;
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Provide a string describing the object
         /// </summary>
         /// <returns>String description of the object</returns>
-        ////////////////////////////////////////////////////////////
         public override string ToString()
         {
             return "[SensorEventArgs]" +

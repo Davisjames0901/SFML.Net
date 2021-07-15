@@ -6,33 +6,27 @@ using System.Runtime.InteropServices;
 using System.Security;
 using SFML.System;
 using SFML.Window;
+using LoadingFailedException = SFML.Window.LoadingFailedException;
 
 namespace SFML.Graphics
 {
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// Wrapper for pixel shaders
     /// </summary>
-    ////////////////////////////////////////////////////////////
     public class Shader : ObjectBase
     {
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Special type that can be passed to SetParameter,
         /// and that represents the texture of the object being drawn
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public class CurrentTextureType { }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Special value that can be passed to SetParameter,
         /// and that represents the texture of the object being drawn
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public static readonly CurrentTextureType CurrentTexture = null;
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Load the vertex, geometry and fragment shaders from files
         /// </summary>
@@ -49,7 +43,6 @@ namespace SFML.Graphics
         /// <param name="geometryShaderFilename">Path of the geometry shader file to load, or null to skip this shader</param>
         /// <param name="fragmentShaderFilename">Path of the fragment shader file to load, or null to skip this shader</param>
         /// <exception cref="LoadingFailedException" />
-        ////////////////////////////////////////////////////////////
         public Shader(string vertexShaderFilename, string geometryShaderFilename, string fragmentShaderFilename) :
             base(sfShader_createFromFile(vertexShaderFilename, geometryShaderFilename, fragmentShaderFilename))
         {
@@ -59,7 +52,6 @@ namespace SFML.Graphics
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Load the vertex, geometry and fragment shaders from custom streams
         /// </summary>
@@ -77,7 +69,6 @@ namespace SFML.Graphics
         /// <param name="geometryShaderStream">Source stream to read the geometry shader from, or null to skip this shader</param>
         /// <param name="fragmentShaderStream">Source stream to read the fragment shader from, or null to skip this shader</param>
         /// <exception cref="LoadingFailedException" />
-        ////////////////////////////////////////////////////////////
         public Shader(Stream vertexShaderStream, Stream geometryShaderStream, Stream fragmentShaderStream) :
             base(IntPtr.Zero)
         {
@@ -98,7 +89,6 @@ namespace SFML.Graphics
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Get the underlying OpenGL handle of the shader.
         /// </summary>
@@ -107,13 +97,11 @@ namespace SFML.Graphics
         /// very specific stuff to implement that SFML doesn't support,
         /// or implement a temporary workaround until a bug is fixed.
         /// </remarks>
-        ////////////////////////////////////////////////////////////
         public uint NativeHandle
         {
             get { return sfShader_getNativeHandle(CPointer); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Load the vertex, geometry and fragment shaders from source code in memory
         /// </summary>
@@ -131,7 +119,6 @@ namespace SFML.Graphics
         /// <param name="fragmentShader">String containing the source code of the fragment shader</param>
         /// <returns>New shader instance</returns>
         /// <exception cref="LoadingFailedException" />
-        ////////////////////////////////////////////////////////////
         public static Shader FromString(string vertexShader, string geometryShader, string fragmentShader)
         {
             IntPtr ptr = sfShader_createFromMemory(vertexShader, geometryShader, fragmentShader);
@@ -143,175 +130,146 @@ namespace SFML.Graphics
             return new Shader(ptr);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Specify value for <c>float</c> uniform
         /// </summary>
         /// <param name="name">Name of the uniform variable in GLSL</param>
         /// <param name="x">Value of the float scalar</param>
-        ////////////////////////////////////////////////////////////
         public void SetUniform(string name, float x)
         {
             sfShader_setFloatUniform(CPointer, name, x);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Specify value for <c>vec2</c> uniform
         /// </summary>
         /// <param name="name">Name of the uniform variable in GLSL</param>
         /// <param name="vector">Value of the vec2 vector</param>
-        ////////////////////////////////////////////////////////////
-        public void SetUniform(string name, Glsl.Vec2 vector)
+        public void SetUniform(string name, Vec2 vector)
         {
             sfShader_setVec2Uniform(CPointer, name, vector);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Specify value for <c>vec3</c> uniform
         /// </summary>
         /// <param name="name">Name of the uniform variable in GLSL</param>
         /// <param name="vector">Value of the vec3 vector</param>
-        ////////////////////////////////////////////////////////////
-        public void SetUniform(string name, Glsl.Vec3 vector)
+        public void SetUniform(string name, Vec3 vector)
         {
             sfShader_setVec3Uniform(CPointer, name, vector);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Specify value for <c>vec4</c> uniform
         /// </summary>
         /// <param name="name">Name of the uniform variable in GLSL</param>
         /// <param name="vector">Value of the vec4 vector</param>
-        ////////////////////////////////////////////////////////////
-        public void SetUniform(string name, Glsl.Vec4 vector)
+        public void SetUniform(string name, Vec4 vector)
         {
             sfShader_setVec4Uniform(CPointer, name, vector);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Specify value for <c>int</c> uniform
         /// </summary>
         /// <param name="name">Name of the uniform variable in GLSL</param>
         /// <param name="x">Value of the int scalar</param>
-        ////////////////////////////////////////////////////////////
         public void SetUniform(string name, int x)
         {
             sfShader_setIntUniform(CPointer, name, x);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Specify value for <c>ivec2</c> uniform
         /// </summary>
         /// <param name="name">Name of the uniform variable in GLSL</param>
         /// <param name="vector">Value of the ivec2 vector</param>
-        ////////////////////////////////////////////////////////////
-        public void SetUniform(string name, Glsl.Ivec2 vector)
+        public void SetUniform(string name, Ivec2 vector)
         {
             sfShader_setIvec2Uniform(CPointer, name, vector);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Specify value for <c>ivec3</c> uniform
         /// </summary>
         /// <param name="name">Name of the uniform variable in GLSL</param>
         /// <param name="vector">Value of the ivec3 vector</param>
-        ////////////////////////////////////////////////////////////
-        public void SetUniform(string name, Glsl.Ivec3 vector)
+        public void SetUniform(string name, Ivec3 vector)
         {
             sfShader_setIvec3Uniform(CPointer, name, vector);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Specify value for <c>ivec4</c> uniform
         /// </summary>
         /// <param name="name">Name of the uniform variable in GLSL</param>
         /// <param name="vector">Value of the ivec4 vector</param>
-        ////////////////////////////////////////////////////////////
-        public void SetUniform(string name, Glsl.Ivec4 vector)
+        public void SetUniform(string name, Ivec4 vector)
         {
             sfShader_setIvec4Uniform(CPointer, name, vector);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Specify value for <c>bool</c> uniform
         /// </summary>
         /// <param name="name">Name of the uniform variable in GLSL</param>
         /// <param name="x">Value of the bool scalar</param>
-        ////////////////////////////////////////////////////////////
         public void SetUniform(string name, bool x)
         {
             sfShader_setBoolUniform(CPointer, name, x);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Specify value for <c>bvec2</c> uniform
         /// </summary>
         /// <param name="name">Name of the uniform variable in GLSL</param>
         /// <param name="vector">Value of the bvec2 vector</param>
-        ////////////////////////////////////////////////////////////
-        public void SetUniform(string name, Glsl.Bvec2 vector)
+        public void SetUniform(string name, Bvec2 vector)
         {
             sfShader_setBvec2Uniform(CPointer, name, vector);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Specify value for <c>bvec3</c> uniform
         /// </summary>
         /// <param name="name">Name of the uniform variable in GLSL</param>
         /// <param name="vector">Value of the bvec3 vector</param>
-        ////////////////////////////////////////////////////////////
-        public void SetUniform(string name, Glsl.Bvec3 vector)
+        public void SetUniform(string name, Bvec3 vector)
         {
             sfShader_setBvec3Uniform(CPointer, name, vector);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Specify value for <c>bvec4</c> uniform
         /// </summary>
         /// <param name="name">Name of the uniform variable in GLSL</param>
         /// <param name="vector">Value of the bvec4 vector</param>
-        ////////////////////////////////////////////////////////////
-        public void SetUniform(string name, Glsl.Bvec4 vector)
+        public void SetUniform(string name, Bvec4 vector)
         {
             sfShader_setBvec4Uniform(CPointer, name, vector);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Specify value for <c>mat3</c> uniform
         /// </summary>
         /// <param name="name">Name of the uniform variable in GLSL</param>
         /// <param name="matrix">Value of the mat3 matrix</param>
-        ////////////////////////////////////////////////////////////
-        public void SetUniform(string name, Glsl.Mat3 matrix)
+        public void SetUniform(string name, Mat3 matrix)
         {
             sfShader_setMat3Uniform(CPointer, name, matrix);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Specify value for <c>mat4</c> uniform
         /// </summary>
         /// <param name="name">Name of the uniform variable in GLSL</param>
         /// <param name="matrix">Value of the mat4 matrix</param>
-        ////////////////////////////////////////////////////////////
-        public void SetUniform(string name, Glsl.Mat4 matrix)
+        public void SetUniform(string name, Mat4 matrix)
         {
             sfShader_setMat4Uniform(CPointer, name, matrix);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Specify a texture as <c>sampler2D</c> uniform
         /// </summary>
@@ -345,7 +303,6 @@ namespace SFML.Graphics
         /// <param name="name">Name of the texture in the shader</param>
         /// <param name="texture">Texture to assign</param>
         ///
-        ////////////////////////////////////////////////////////////
         public void SetUniform(string name, Texture texture)
         {
             // Keep a reference to the Texture so it doesn't get GC'd
@@ -353,7 +310,6 @@ namespace SFML.Graphics
             sfShader_setTextureUniform(CPointer, name, texture.CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Specify current texture as \p sampler2D uniform
         /// </summary>
@@ -378,19 +334,16 @@ namespace SFML.Graphics
         ///
         /// <param name="name">Name of the texture in the shader</param>
         /// <param name="current"/>
-        ////////////////////////////////////////////////////////////
         public void SetUniform(string name, CurrentTextureType current)
         {
             sfShader_setCurrentTextureUniform(CPointer, name);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Specify values for <c>float[]</c> array uniforms
         /// </summary>
         /// <param name="name">Name of the uniform variable in GLSL</param>
         /// <param name="array">array of <c>float</c> values</param>
-        ////////////////////////////////////////////////////////////
         public unsafe void SetUniformArray(string name, float[] array)
         {
             fixed (float* data = array)
@@ -399,82 +352,71 @@ namespace SFML.Graphics
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Specify values for <c>vec2[]</c> array uniforms
         /// </summary>
         /// <param name="name">Name of the uniform variable in GLSL</param>
         /// <param name="array">array of <c>vec2</c> values</param>
-        ////////////////////////////////////////////////////////////
-        public unsafe void SetUniformArray(string name, Glsl.Vec2[] array)
+        public unsafe void SetUniformArray(string name, Vec2[] array)
         {
-            fixed (Glsl.Vec2* data = array)
+            fixed (Vec2* data = array)
             {
                 sfShader_setVec2UniformArray(CPointer, name, data, (uint)array.Length);
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Specify values for <c>vec3[]</c> array uniforms
         /// </summary>
         /// <param name="name">Name of the uniform variable in GLSL</param>
         /// <param name="array">array of <c>vec3</c> values</param>
-        ////////////////////////////////////////////////////////////
-        public unsafe void SetUniformArray(string name, Glsl.Vec3[] array)
+        public unsafe void SetUniformArray(string name, Vec3[] array)
         {
-            fixed (Glsl.Vec3* data = array)
+            fixed (Vec3* data = array)
             {
                 sfShader_setVec3UniformArray(CPointer, name, data, (uint)array.Length);
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Specify values for <c>vec4[]</c> array uniforms
         /// </summary>
         /// <param name="name">Name of the uniform variable in GLSL</param>
         /// <param name="array">array of <c>vec4</c> values</param>
-        ////////////////////////////////////////////////////////////
-        public unsafe void SetUniformArray(string name, Glsl.Vec4[] array)
+        public unsafe void SetUniformArray(string name, Vec4[] array)
         {
-            fixed (Glsl.Vec4* data = array)
+            fixed (Vec4* data = array)
             {
                 sfShader_setVec4UniformArray(CPointer, name, data, (uint)array.Length);
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Specify values for <c>mat3[]</c> array uniforms
         /// </summary>
         /// <param name="name">Name of the uniform variable in GLSL</param>
         /// <param name="array">array of <c>mat3</c> values</param>
-        ////////////////////////////////////////////////////////////
-        public unsafe void SetUniformArray(string name, Glsl.Mat3[] array)
+        public unsafe void SetUniformArray(string name, Mat3[] array)
         {
-            fixed (Glsl.Mat3* data = array)
+            fixed (Mat3* data = array)
             {
                 sfShader_setMat3UniformArray(CPointer, name, data, (uint)array.Length);
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Specify values for <c>mat4[]</c> array uniforms
         /// </summary>
         /// <param name="name">Name of the uniform variable in GLSL</param>
         /// <param name="array">array of <c>mat4</c> values</param>
-        ////////////////////////////////////////////////////////////
-        public unsafe void SetUniformArray(string name, Glsl.Mat4[] array)
+        public unsafe void SetUniformArray(string name, Mat4[] array)
         {
-            fixed (Glsl.Mat4* data = array)
+            fixed (Mat4* data = array)
             {
                 sfShader_setMat4UniformArray(CPointer, name, data, (uint)array.Length);
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Change a float parameter of the shader
         ///
@@ -486,14 +428,12 @@ namespace SFML.Graphics
         /// <param name="name">Name of the parameter in the shader</param>
         /// <param name="x">Value to assign</param>
         ///
-        ////////////////////////////////////////////////////////////
         [Obsolete("SetParameter is deprecated, please use the corresponding SetUniform")]
         public void SetParameter(string name, float x)
         {
             sfShader_setFloatParameter(CPointer, name, x);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Change a 2-components vector parameter of the shader
         ///
@@ -504,14 +444,12 @@ namespace SFML.Graphics
         /// <param name="name">Name of the parameter in the shader</param>
         /// <param name="x">First component of the value to assign</param>
         /// <param name="y">Second component of the value to assign</param>
-        ////////////////////////////////////////////////////////////
         [Obsolete("SetParameter is deprecated, please use the corresponding SetUniform")]
         public void SetParameter(string name, float x, float y)
         {
             sfShader_setFloat2Parameter(CPointer, name, x, y);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Change a 3-components vector parameter of the shader
         ///
@@ -523,14 +461,12 @@ namespace SFML.Graphics
         /// <param name="x">First component of the value to assign</param>
         /// <param name="y">Second component of the value to assign</param>
         /// <param name="z">Third component of the value to assign</param>
-        ////////////////////////////////////////////////////////////
         [Obsolete("SetParameter is deprecated, please use the corresponding SetUniform")]
         public void SetParameter(string name, float x, float y, float z)
         {
             sfShader_setFloat3Parameter(CPointer, name, x, y, z);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Change a 4-components vector parameter of the shader
         ///
@@ -543,14 +479,12 @@ namespace SFML.Graphics
         /// <param name="y">Second component of the value to assign</param>
         /// <param name="z">Third component of the value to assign</param>
         /// <param name="w">Fourth component of the value to assign</param>
-        ////////////////////////////////////////////////////////////
         [Obsolete("SetParameter is deprecated, please use the corresponding SetUniform")]
         public void SetParameter(string name, float x, float y, float z, float w)
         {
             sfShader_setFloat4Parameter(CPointer, name, x, y, z, w);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Change a 2-components vector parameter of the shader
         ///
@@ -560,14 +494,12 @@ namespace SFML.Graphics
         /// </summary>
         /// <param name="name">Name of the parameter in the shader</param>
         /// <param name="vector">Vector to assign</param>
-        ////////////////////////////////////////////////////////////
         [Obsolete("SetParameter is deprecated, please use the corresponding SetUniform")]
         public void SetParameter(string name, Vector2 vector)
         {
             SetParameter(name, vector.X, vector.Y);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Change a color parameter of the shader
         ///
@@ -577,14 +509,12 @@ namespace SFML.Graphics
         /// </summary>
         /// <param name="name">Name of the parameter in the shader</param>
         /// <param name="color">Color to assign</param>
-        ////////////////////////////////////////////////////////////
         [Obsolete("SetParameter is deprecated, please use the corresponding SetUniform")]
         public void SetParameter(string name, Color color)
         {
             sfShader_setColorParameter(CPointer, name, color);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Change a matrix parameter of the shader
         ///
@@ -594,14 +524,12 @@ namespace SFML.Graphics
         /// </summary>
         /// <param name="name">Name of the parameter in the shader</param>
         /// <param name="transform">Transform to assign</param>
-        ////////////////////////////////////////////////////////////
         [Obsolete("SetParameter is deprecated, please use the corresponding SetUniform")]
         public void SetParameter(string name, Transform transform)
         {
             sfShader_setTransformParameter(CPointer, name, transform);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Change a texture parameter of the shader
         ///
@@ -618,7 +546,6 @@ namespace SFML.Graphics
         /// </summary>
         /// <param name="name">Name of the texture in the shader</param>
         /// <param name="texture">Texture to assign</param>
-        ////////////////////////////////////////////////////////////
         [Obsolete("SetParameter is deprecated, please use the corresponding SetUniform")]
         public void SetParameter(string name, Texture texture)
         {
@@ -627,7 +554,6 @@ namespace SFML.Graphics
             sfShader_setTextureParameter(CPointer, name, texture.CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Change a texture parameter of the shader
         ///
@@ -640,25 +566,21 @@ namespace SFML.Graphics
         /// </summary>
         /// <param name="name">Name of the texture in the shader</param>
         /// <param name="current">Always pass the spacial value Shader.CurrentTexture</param>
-        ////////////////////////////////////////////////////////////
         [Obsolete("SetParameter is deprecated, please use the corresponding SetUniform")]
         public void SetParameter(string name, CurrentTextureType current)
         {
             sfShader_setCurrentTextureParameter(CPointer, name);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Bind a shader for rendering
         /// </summary>
         /// <param name="shader">Shader to bind (can be null to use no shader)</param>
-        ////////////////////////////////////////////////////////////
         public static void Bind(Shader shader)
         {
             sfShader_bind(shader != null ? shader.CPointer : IntPtr.Zero);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Tell whether or not the system supports shaders.
         /// </summary>
@@ -668,13 +590,11 @@ namespace SFML.Graphics
         /// the shader features. If it returns false, then
         /// any attempt to use Shader will fail.
         /// </remarks>
-        ////////////////////////////////////////////////////////////
         public static bool IsAvailable
         {
             get { return sfShader_isAvailable(); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Tell whether or not the system supports geometry shaders.
         /// </summary>
@@ -687,29 +607,24 @@ namespace SFML.Graphics
         /// <para>Note: The first call to this function, whether by your
         /// code or SFML will result in a context switch.</para>
         /// </remarks>
-        ////////////////////////////////////////////////////////////
         public static bool IsGeometryAvailable
         {
             get { return sfShader_isGeometryAvailable(); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Provide a string describing the object
         /// </summary>
         /// <returns>String description of the object</returns>
-        ////////////////////////////////////////////////////////////
         public override string ToString()
         {
             return "[Shader]";
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Handle the destruction of the object
         /// </summary>
         /// <param name="disposing">Is the GC disposing the object, or is it an explicit call ?</param>
-        ////////////////////////////////////////////////////////////
         protected override void Destroy(bool disposing)
         {
             if (!disposing)
@@ -726,12 +641,10 @@ namespace SFML.Graphics
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct the shader from a pointer
         /// </summary>
         /// <param name="ptr">Pointer to the shader instance</param>
-        ////////////////////////////////////////////////////////////
         public Shader(IntPtr ptr) :
             base(ptr)
         {
@@ -757,43 +670,43 @@ namespace SFML.Graphics
         static extern void sfShader_setFloatUniform(IntPtr shader, string name, float x);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern void sfShader_setVec2Uniform(IntPtr shader, string name, Glsl.Vec2 vector);
+        static extern void sfShader_setVec2Uniform(IntPtr shader, string name, Vec2 vector);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern void sfShader_setVec3Uniform(IntPtr shader, string name, Glsl.Vec3 vector);
+        static extern void sfShader_setVec3Uniform(IntPtr shader, string name, Vec3 vector);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern void sfShader_setVec4Uniform(IntPtr shader, string name, Glsl.Vec4 vector);
+        static extern void sfShader_setVec4Uniform(IntPtr shader, string name, Vec4 vector);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
         static extern void sfShader_setIntUniform(IntPtr shader, string name, int x);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern void sfShader_setIvec2Uniform(IntPtr shader, string name, Glsl.Ivec2 vector);
+        static extern void sfShader_setIvec2Uniform(IntPtr shader, string name, Ivec2 vector);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern void sfShader_setIvec3Uniform(IntPtr shader, string name, Glsl.Ivec3 vector);
+        static extern void sfShader_setIvec3Uniform(IntPtr shader, string name, Ivec3 vector);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern void sfShader_setIvec4Uniform(IntPtr shader, string name, Glsl.Ivec4 vector);
+        static extern void sfShader_setIvec4Uniform(IntPtr shader, string name, Ivec4 vector);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
         static extern void sfShader_setBoolUniform(IntPtr shader, string name, bool x);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern void sfShader_setBvec2Uniform(IntPtr shader, string name, Glsl.Bvec2 vector);
+        static extern void sfShader_setBvec2Uniform(IntPtr shader, string name, Bvec2 vector);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern void sfShader_setBvec3Uniform(IntPtr shader, string name, Glsl.Bvec3 vector);
+        static extern void sfShader_setBvec3Uniform(IntPtr shader, string name, Bvec3 vector);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern void sfShader_setBvec4Uniform(IntPtr shader, string name, Glsl.Bvec4 vector);
+        static extern void sfShader_setBvec4Uniform(IntPtr shader, string name, Bvec4 vector);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern void sfShader_setMat3Uniform(IntPtr shader, string name, Glsl.Mat3 matrix);
+        static extern void sfShader_setMat3Uniform(IntPtr shader, string name, Mat3 matrix);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern void sfShader_setMat4Uniform(IntPtr shader, string name, Glsl.Mat4 matrix);
+        static extern void sfShader_setMat4Uniform(IntPtr shader, string name, Mat4 matrix);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
         static extern void sfShader_setTextureUniform(IntPtr shader, string name, IntPtr texture);
@@ -805,19 +718,19 @@ namespace SFML.Graphics
         static extern unsafe void sfShader_setFloatUniformArray(IntPtr shader, string name, float* data, uint length);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern unsafe void sfShader_setVec2UniformArray(IntPtr shader, string name, Glsl.Vec2* data, uint length);
+        static extern unsafe void sfShader_setVec2UniformArray(IntPtr shader, string name, Vec2* data, uint length);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern unsafe void sfShader_setVec3UniformArray(IntPtr shader, string name, Glsl.Vec3* data, uint length);
+        static extern unsafe void sfShader_setVec3UniformArray(IntPtr shader, string name, Vec3* data, uint length);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern unsafe void sfShader_setVec4UniformArray(IntPtr shader, string name, Glsl.Vec4* data, uint length);
+        static extern unsafe void sfShader_setVec4UniformArray(IntPtr shader, string name, Vec4* data, uint length);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern unsafe void sfShader_setMat3UniformArray(IntPtr shader, string name, Glsl.Mat3* data, uint length);
+        static extern unsafe void sfShader_setMat3UniformArray(IntPtr shader, string name, Mat3* data, uint length);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        static extern unsafe void sfShader_setMat4UniformArray(IntPtr shader, string name, Glsl.Mat4* data, uint length);
+        static extern unsafe void sfShader_setMat4UniformArray(IntPtr shader, string name, Mat4* data, uint length);
 
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity, Obsolete]
         static extern void sfShader_setFloatParameter(IntPtr shader, string name, float x);

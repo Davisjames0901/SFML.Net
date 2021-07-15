@@ -5,18 +5,14 @@ using SFML.System;
 
 namespace SFML.Window
 {
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// Give access to the real-time state of sensors
     /// </summary>
-    ////////////////////////////////////////////////////////////
     public static class Sensor
     {
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Sensor types
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public enum Type
         {
             /// <summary>Measures the raw acceleration (m/s^2)</summary>
@@ -41,37 +37,31 @@ namespace SFML.Window
             TypeCount
         };
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Check if a sensor is available on the underlying platform
         /// </summary>
         /// <param name="Sensor">Sensor to check</param>
         /// <returns>True if the sensor is available, false otherwise</returns>
-        ////////////////////////////////////////////////////////////
         public static bool IsAvailable(Type Sensor)
         {
             return sfSensor_isAvailable(Sensor);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Enable or disable a sensor
         /// </summary>
         /// <param name="Sensor">Sensor to check</param>
         /// <param name="Enabled">True to enable, false to disable</param>
-        ////////////////////////////////////////////////////////////
         public static void SetEnabled(Type Sensor, bool Enabled)
         {
             sfSensor_setEnabled(Sensor, Enabled);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Get the current sensor value
         /// </summary>
         /// <param name="Sensor">Sensor to check</param>
         /// <returns>The current sensor value</returns>
-        ////////////////////////////////////////////////////////////
         public static Vector3 GetValue(Type Sensor)
         {
             return sfSensor_getValue(Sensor);

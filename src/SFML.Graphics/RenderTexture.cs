@@ -7,26 +7,21 @@ using SFML.Window;
 
 namespace SFML.Graphics
 {
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// Target for off-screen 2D rendering into an texture
     /// </summary>
-    ////////////////////////////////////////////////////////////
     public class RenderTexture : ObjectBase, RenderTarget
     {
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Create the render-texture with the given dimensions
         /// </summary>
         /// <param name="width">Width of the render-texture</param>
         /// <param name="height">Height of the render-texture</param>
-        ////////////////////////////////////////////////////////////
         public RenderTexture(uint width, uint height) :
             this(width, height, default(ContextSettings))
         {
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Create the render-texture with the given dimensions and
         /// an optional depth-buffer attached
@@ -34,7 +29,6 @@ namespace SFML.Graphics
         /// <param name="width">Width of the render-texture</param>
         /// <param name="height">Height of the render-texture</param>
         /// <param name="depthBuffer">Do you want a depth-buffer attached?</param>
-        ////////////////////////////////////////////////////////////
         [Obsolete("Creating a RenderTexture with depthBuffer is deprecated. Use RenderTexture(width, height, contextSettings) instead.")]
         public RenderTexture(uint width, uint height, bool depthBuffer) :
             base(sfRenderTexture_create(width, height, depthBuffer))
@@ -45,7 +39,6 @@ namespace SFML.Graphics
             GC.SuppressFinalize(myTexture);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Create the render-texture with the given dimensions and
         /// a ContextSettings.
@@ -53,7 +46,6 @@ namespace SFML.Graphics
         /// <param name="width">Width of the render-texture</param>
         /// <param name="height">Height of the render-texture</param>
         /// <param name="contextSettings">A ContextSettings struct representing settings for the RenderTexture</param>
-        ////////////////////////////////////////////////////////////
         public RenderTexture(uint width, uint height, ContextSettings contextSettings) :
             base(sfRenderTexture_createWithSettings(width, height, ref contextSettings))
         {
@@ -63,20 +55,17 @@ namespace SFML.Graphics
             GC.SuppressFinalize(myTexture);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Activate of deactivate the render texture as the current target
         /// for rendering
         /// </summary>
         /// <param name="active">True to activate, false to deactivate (true by default)</param>
         /// <returns>True if operation was successful, false otherwise</returns>
-        ////////////////////////////////////////////////////////////
         public bool SetActive(bool active)
         {
             return sfRenderTexture_setActive(CPointer, active);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Enable or disable texture repeating
         /// </summary>
@@ -85,68 +74,56 @@ namespace SFML.Graphics
         /// This property is similar to <see cref="Texture.Repeated"/>.
         /// This parameter is disabled by default.
         /// </remarks>
-        ////////////////////////////////////////////////////////////
         public bool Repeated
         {
             get { return sfRenderTexture_isRepeated(CPointer); }
             set { sfRenderTexture_setRepeated(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Size of the rendering region of the render texture
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public Vector2 Size
         {
             get { return sfRenderTexture_getSize(CPointer); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Default view of the render texture
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public View DefaultView
         {
             get { return new View(myDefaultView); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Return the current active view
         /// </summary>
         /// <returns>The current view</returns>
-        ////////////////////////////////////////////////////////////
         public View GetView()
         {
             return new View(sfRenderTexture_getView(CPointer));
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Change the current active view
         /// </summary>
         /// <param name="view">New view</param>
-        ////////////////////////////////////////////////////////////
         public void SetView(View view)
         {
             sfRenderTexture_setView(CPointer, view.CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Get the viewport of a view applied to this target
         /// </summary>
         /// <param name="view">Target view</param>
         /// <returns>Viewport rectangle, expressed in pixels in the current target</returns>
-        ////////////////////////////////////////////////////////////
         public IntRect GetViewport(View view)
         {
             return sfRenderTexture_getViewport(CPointer, view.CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Convert a point from target coordinates to world
         /// coordinates, using the current view
@@ -158,13 +135,11 @@ namespace SFML.Graphics
         /// </summary>
         /// <param name="point">Pixel to convert</param>
         /// <returns>The converted point, in "world" coordinates</returns>
-        ////////////////////////////////////////////////////////////
         public Vector2 MapPixelToCoords(Vector2 point)
         {
             return MapPixelToCoords(point, GetView());
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Convert a point from target coordinates to world coordinates
         ///
@@ -189,13 +164,11 @@ namespace SFML.Graphics
         /// <param name="point">Pixel to convert</param>
         /// <param name="view">The view to use for converting the point</param>
         /// <returns>The converted point, in "world" coordinates</returns>
-        ////////////////////////////////////////////////////////////
         public Vector2 MapPixelToCoords(Vector2 point, View view)
         {
             return Vector2i.Convert(sfRenderTexture_mapPixelToCoords(CPointer, Vector2i.Convert(point), view?.CPointer ?? IntPtr.Zero));
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Convert a point from world coordinates to target
         /// coordinates, using the current view
@@ -207,13 +180,11 @@ namespace SFML.Graphics
         /// </summary>
         /// <param name="point">Point to convert</param>
         /// <returns>The converted point, in target coordinates (pixels)</returns>
-        ////////////////////////////////////////////////////////////
         public Vector2 MapCoordsToPixel(Vector2 point)
         {
             return MapCoordsToPixel(point, GetView());
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Convert a point from world coordinates to target coordinates
         ///
@@ -234,13 +205,11 @@ namespace SFML.Graphics
         /// <param name="point">Point to convert</param>
         /// <param name="view">The view to use for converting the point</param>
         /// <returns>The converted point, in target coordinates (pixels)</returns>
-        ////////////////////////////////////////////////////////////
         public Vector2 MapCoordsToPixel(Vector2 point, View view)
         {
             return sfRenderTexture_mapCoordsToPixel(CPointer, Vector2i.Convert(point), view != null ? view.CPointer : IntPtr.Zero);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Generate a mipmap using the current texture data
         /// </summary>
@@ -256,120 +225,98 @@ namespace SFML.Graphics
         /// </remarks>
         ///
         /// <returns>True if mipmap generation was successful, false if unsuccessful</returns>
-        ////////////////////////////////////////////////////////////
         public bool GenerateMipmap()
         {
             return sfRenderTexture_generateMipmap(CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Clear the entire render texture with black color
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public void Clear()
         {
             sfRenderTexture_clear(CPointer, Color.Black);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Clear the entire render texture with a single color
         /// </summary>
         /// <param name="color">Color to use to clear the texture</param>
-        ////////////////////////////////////////////////////////////
         public void Clear(Color color)
         {
             sfRenderTexture_clear(CPointer, color);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Update the contents of the target texture
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public void Display()
         {
             sfRenderTexture_display(CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Target texture of the render texture
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public Texture Texture
         {
             get { return myTexture; }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// The maximum anti-aliasing level supported by the system
         /// </summary>
-        ////////////////////////////////////////////////////////////
         static public uint MaximumAntialiasingLevel => sfRenderTexture_getMaximumAntialiasingLevel();
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Control the smooth filter
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public bool Smooth
         {
             get { return sfRenderTexture_isSmooth(CPointer); }
             set { sfRenderTexture_setSmooth(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Draw a drawable object to the render-target, with default render states
         /// </summary>
         /// <param name="drawable">Object to draw</param>
-        ////////////////////////////////////////////////////////////
         public void Draw(Drawable drawable)
         {
             Draw(drawable, RenderStates.Default);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Draw a drawable object to the render-target
         /// </summary>
         /// <param name="drawable">Object to draw</param>
         /// <param name="states">Render states to use for drawing</param>
-        ////////////////////////////////////////////////////////////
         public void Draw(Drawable drawable, RenderStates states)
         {
             drawable.Draw(this, states);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Draw primitives defined by an array of vertices, with default render states
         /// </summary>
         /// <param name="vertices">Pointer to the vertices</param>
         /// <param name="type">Type of primitives to draw</param>
-        ////////////////////////////////////////////////////////////
         public void Draw(Vertex[] vertices, PrimitiveType type)
         {
             Draw(vertices, type, RenderStates.Default);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Draw primitives defined by an array of vertices
         /// </summary>
         /// <param name="vertices">Pointer to the vertices</param>
         /// <param name="type">Type of primitives to draw</param>
         /// <param name="states">Render states to use for drawing</param>
-        ////////////////////////////////////////////////////////////
         public void Draw(Vertex[] vertices, PrimitiveType type, RenderStates states)
         {
             Draw(vertices, 0, (uint)vertices.Length, type, states);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Draw primitives defined by a sub-array of vertices, with default render states
         /// </summary>
@@ -377,13 +324,11 @@ namespace SFML.Graphics
         /// <param name="start">Index of the first vertex to draw in the array</param>
         /// <param name="count">Number of vertices to draw</param>
         /// <param name="type">Type of primitives to draw</param>
-        ////////////////////////////////////////////////////////////
         public void Draw(Vertex[] vertices, uint start, uint count, PrimitiveType type)
         {
             Draw(vertices, start, count, type, RenderStates.Default);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Draw primitives defined by a sub-array of vertices
         /// </summary>
@@ -392,7 +337,6 @@ namespace SFML.Graphics
         /// <param name="count">Number of vertices to draw</param>
         /// <param name="type">Type of primitives to draw</param>
         /// <param name="states">Render states to use for drawing</param>
-        ////////////////////////////////////////////////////////////
         public void Draw(Vertex[] vertices, uint start, uint count, PrimitiveType type, RenderStates states)
         {
             RenderStates.MarshalData marshaledStates = states.Marshal();
@@ -406,7 +350,6 @@ namespace SFML.Graphics
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Save the current OpenGL render states and matrices.
         ///
@@ -435,26 +378,22 @@ namespace SFML.Graphics
         /// saved and restored). Take a look at the ResetGLStates
         /// function if you do so.
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public void PushGLStates()
         {
             sfRenderTexture_pushGLStates(CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Restore the previously saved OpenGL render states and matrices.
         ///
         /// See the description of PushGLStates to get a detailed
         /// description of these functions.
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public void PopGLStates()
         {
             sfRenderTexture_popGLStates(CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Reset the internal OpenGL states so that the target is ready for drawing.
         ///
@@ -474,18 +413,15 @@ namespace SFML.Graphics
         /// glPopAttrib(...);
         /// // OpenGL code here...
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public void ResetGLStates()
         {
             sfRenderTexture_resetGLStates(CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Provide a string describing the object
         /// </summary>
         /// <returns>String description of the object</returns>
-        ////////////////////////////////////////////////////////////
         public override string ToString()
         {
             return "[RenderTexture]" +
@@ -495,12 +431,10 @@ namespace SFML.Graphics
                    " View(" + GetView() + ")";
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Handle the destruction of the object
         /// </summary>
         /// <param name="disposing">Is the GC disposing the object, or is it an explicit call ?</param>
-        ////////////////////////////////////////////////////////////
         protected override void Destroy(bool disposing)
         {
             if (!disposing)

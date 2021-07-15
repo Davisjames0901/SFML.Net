@@ -8,40 +8,33 @@ using SFML.Window;
 
 namespace SFML.Graphics
 {
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// Simple wrapper for Window that allows easy
     /// 2D rendering
     /// </summary>
-    ////////////////////////////////////////////////////////////
     public class RenderWindow : Window.Window, RenderTarget
     {
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Create the window with default style and creation settings
         /// </summary>
         /// <param name="mode">Video mode to use</param>
         /// <param name="title">Title of the window</param>
-        ////////////////////////////////////////////////////////////
         public RenderWindow(VideoMode mode, string title) :
             this(mode, title, Styles.Default, new ContextSettings(0, 0))
         {
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Create the window with default creation settings
         /// </summary>
         /// <param name="mode">Video mode to use</param>
         /// <param name="title">Title of the window</param>
         /// <param name="style">Window style (Resize | Close by default)</param>
-        ////////////////////////////////////////////////////////////
         public RenderWindow(VideoMode mode, string title, Styles style) :
             this(mode, title, style, new ContextSettings(0, 0))
         {
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Create the window
         /// </summary>
@@ -49,7 +42,6 @@ namespace SFML.Graphics
         /// <param name="title">Title of the window</param>
         /// <param name="style">Window style (Resize | Close by default)</param>
         /// <param name="settings">Creation parameters</param>
-        ////////////////////////////////////////////////////////////
         public RenderWindow(VideoMode mode, string title, Styles style, ContextSettings settings) :
             base(IntPtr.Zero, 0)
         {
@@ -66,81 +58,67 @@ namespace SFML.Graphics
             Initialize();
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Create the window from an existing control with default creation settings
         /// </summary>
         /// <param name="handle">Platform-specific handle of the control</param>
-        ////////////////////////////////////////////////////////////
         public RenderWindow(IntPtr handle) :
             this(handle, new ContextSettings(0, 0))
         {
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Create the window from an existing control
         /// </summary>
         /// <param name="handle">Platform-specific handle of the control</param>
         /// <param name="settings">Creation parameters</param>
-        ////////////////////////////////////////////////////////////
         public RenderWindow(IntPtr handle, ContextSettings settings) :
             base(sfRenderWindow_createFromHandle(handle, ref settings), 0)
         {
             Initialize();
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Close (destroy) the window.
         /// The Window instance remains valid and you can call
         /// Create to recreate the window
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public override void Close()
         {
             sfRenderWindow_close(CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Tell whether or not the window is opened (ie. has been created).
         /// Note that a hidden window (Show(false))
         /// will still return true
         /// </summary>
         /// <returns>True if the window is opened</returns>
-        ////////////////////////////////////////////////////////////
         public override bool IsOpen
         {
             get { return sfRenderWindow_isOpen(CPointer); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Creation settings of the window
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public override ContextSettings Settings
         {
             get { return sfRenderWindow_getSettings(CPointer); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Position of the window
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public override Vector2 Position
         {
             get { return sfRenderWindow_getPosition(CPointer); }
             set { sfRenderWindow_setPosition(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Size of the rendering region of the window
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public override Vector2 Size
         {
             get
@@ -151,12 +129,10 @@ namespace SFML.Graphics
             set { sfRenderWindow_setSize(CPointer, value); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Change the title of the window
         /// </summary>
         /// <param name="title">New title</param>
-        ////////////////////////////////////////////////////////////
         public override void SetTitle(string title)
         {
             // Copy the title to a null-terminated UTF-32 byte array
@@ -171,14 +147,12 @@ namespace SFML.Graphics
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Change the window's icon
         /// </summary>
         /// <param name="width">Icon's width, in pixels</param>
         /// <param name="height">Icon's height, in pixels</param>
         /// <param name="pixels">Array of pixels, format must be RGBA 32 bits</param>
-        ////////////////////////////////////////////////////////////
         public override void SetIcon(uint width, uint height, byte[] pixels)
         {
             unsafe
@@ -190,40 +164,33 @@ namespace SFML.Graphics
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Show or hide the window
         /// </summary>
         /// <param name="visible">True to show the window, false to hide it</param>
-        ////////////////////////////////////////////////////////////
         public override void SetVisible(bool visible)
         {
             sfRenderWindow_setVisible(CPointer, visible);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Enable / disable vertical synchronization
         /// </summary>
         /// <param name="enable">True to enable v-sync, false to deactivate</param>
-        ////////////////////////////////////////////////////////////
         public override void SetVerticalSyncEnabled(bool enable)
         {
             sfRenderWindow_setVerticalSyncEnabled(CPointer, enable);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Show or hide the mouse cursor
         /// </summary>
         /// <param name="visible">True to show, false to hide</param>
-        ////////////////////////////////////////////////////////////
         public override void SetMouseCursorVisible(bool visible)
         {
             sfRenderWindow_setMouseCursorVisible(CPointer, visible);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Grab or release the mouse cursor
         /// </summary>
@@ -237,167 +204,137 @@ namespace SFML.Graphics
         /// won't have any effect (fullscreen windows always grab the
         /// cursor).
         /// </remarks>
-        ////////////////////////////////////////////////////////////
         public override void SetMouseCursorGrabbed(bool grabbed)
         {
             sfRenderWindow_setMouseCursorGrabbed(CPointer, grabbed);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Set the displayed cursor to a native system cursor
         /// </summary>
         /// <param name="cursor">Native system cursor type to display</param>
-        ////////////////////////////////////////////////////////////
         public override void SetMouseCursor(Cursor cursor)
         {
             sfRenderWindow_setMouseCursor(CPointer, cursor.CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Enable or disable automatic key-repeat.
         /// Automatic key-repeat is enabled by default
         /// </summary>
         /// <param name="enable">True to enable, false to disable</param>
-        ////////////////////////////////////////////////////////////
         public override void SetKeyRepeatEnabled(bool enable)
         {
             sfRenderWindow_setKeyRepeatEnabled(CPointer, enable);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Limit the framerate to a maximum fixed frequency
         /// </summary>
         /// <param name="limit">Framerate limit, in frames per seconds (use 0 to disable limit)</param>
-        ////////////////////////////////////////////////////////////
         public override void SetFramerateLimit(uint limit)
         {
             sfRenderWindow_setFramerateLimit(CPointer, limit);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Change the joystick threshold, ie. the value below which
         /// no move event will be generated
         /// </summary>
         /// <param name="threshold">New threshold, in range [0, 100]</param>
-        ////////////////////////////////////////////////////////////
         public override void SetJoystickThreshold(float threshold)
         {
             sfRenderWindow_setJoystickThreshold(CPointer, threshold);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Activate of deactivate the window as the current target
         /// for rendering
         /// </summary>
         /// <param name="active">True to activate, false to deactivate (true by default)</param>
         /// <returns>True if operation was successful, false otherwise</returns>
-        ////////////////////////////////////////////////////////////
         public override bool SetActive(bool active)
         {
             return sfRenderWindow_setActive(CPointer, active);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Request the current window to be made the active
         /// foreground window
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public override void RequestFocus()
         {
             sfRenderWindow_requestFocus(CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Check whether the window has the input focus
         /// </summary>
         /// <returns>True if the window has focus, false otherwise</returns>
-        ////////////////////////////////////////////////////////////
         public override bool HasFocus()
         {
             return sfRenderWindow_hasFocus(CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Display the window on screen
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public override void Display()
         {
             sfRenderWindow_display(CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// OS-specific handle of the window
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public override IntPtr SystemHandle
         {
             get { return sfRenderWindow_getSystemHandle(CPointer); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Clear the entire window with black color
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public void Clear()
         {
             sfRenderWindow_clear(CPointer, Color.Black);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Clear the entire window with a single color
         /// </summary>
         /// <param name="color">Color to use to clear the window</param>
-        ////////////////////////////////////////////////////////////
         public void Clear(Color color)
         {
             sfRenderWindow_clear(CPointer, color);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Change the current active view
         /// </summary>
         /// <param name="view">New view</param>
-        ////////////////////////////////////////////////////////////
         public void SetView(View view)
         {
             sfRenderWindow_setView(CPointer, view.CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Return the current active view
         /// </summary>
         /// <returns>The current view</returns>
-        ////////////////////////////////////////////////////////////
         public View GetView()
         {
             return new View(sfRenderWindow_getView(CPointer));
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Default view of the window
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public View DefaultView
         {
             get { return new View(myDefaultView); }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Convert a point from target coordinates to world
         /// coordinates, using the current view
@@ -409,13 +346,11 @@ namespace SFML.Graphics
         /// </summary>
         /// <param name="point">Pixel to convert</param>
         /// <returns>The converted point, in "world" coordinates</returns>
-        ////////////////////////////////////////////////////////////
         public Vector2 MapPixelToCoords(Vector2 point)
         {
             return MapPixelToCoords(point, GetView());
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Convert a point from target coordinates to world coordinates
         ///
@@ -440,7 +375,6 @@ namespace SFML.Graphics
         /// <param name="point">Pixel to convert</param>
         /// <param name="view">The view to use for converting the point</param>
         /// <returns>The converted point, in "world" coordinates</returns>
-        ////////////////////////////////////////////////////////////
         public Vector2 MapPixelToCoords(Vector2 point, View view)
         {
             var normalized = new Vector2();
@@ -463,7 +397,6 @@ namespace SFML.Graphics
 
 
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Convert a point from world coordinates to target
         /// coordinates, using the current view
@@ -475,13 +408,11 @@ namespace SFML.Graphics
         /// </summary>
         /// <param name="point">Point to convert</param>
         /// <returns>The converted point, in target coordinates (pixels)</returns>
-        ////////////////////////////////////////////////////////////
         public Vector2 MapCoordsToPixel(Vector2 point)
         {
             return MapCoordsToPixel(point, GetView());
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Convert a point from world coordinates to target coordinates
         ///
@@ -502,61 +433,51 @@ namespace SFML.Graphics
         /// <param name="point">Point to convert</param>
         /// <param name="view">The view to use for converting the point</param>
         /// <returns>The converted point, in target coordinates (pixels)</returns>
-        ////////////////////////////////////////////////////////////
         public Vector2 MapCoordsToPixel(Vector2 point, View view)
         {
             return sfRenderWindow_mapCoordsToPixel(CPointer, Vector2i.Convert(point), view != null ? view.CPointer : IntPtr.Zero);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Draw a drawable object to the render-target, with default render states
         /// </summary>
         /// <param name="drawable">Object to draw</param>
-        ////////////////////////////////////////////////////////////
         public void Draw(Drawable drawable)
         {
             Draw(drawable, RenderStates.Default);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Draw a drawable object to the render-target
         /// </summary>
         /// <param name="drawable">Object to draw</param>
         /// <param name="states">Render states to use for drawing</param>
-        ////////////////////////////////////////////////////////////
         public void Draw(Drawable drawable, RenderStates states)
         {
             drawable.Draw(this, states);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Draw primitives defined by an array of vertices, with default render states
         /// </summary>
         /// <param name="vertices">Pointer to the vertices</param>
         /// <param name="type">Type of primitives to draw</param>
-        ////////////////////////////////////////////////////////////
         public void Draw(Vertex[] vertices, PrimitiveType type)
         {
             Draw(vertices, type, RenderStates.Default);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Draw primitives defined by an array of vertices
         /// </summary>
         /// <param name="vertices">Pointer to the vertices</param>
         /// <param name="type">Type of primitives to draw</param>
         /// <param name="states">Render states to use for drawing</param>
-        ////////////////////////////////////////////////////////////
         public void Draw(Vertex[] vertices, PrimitiveType type, RenderStates states)
         {
             Draw(vertices, 0, (uint)vertices.Length, type, states);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Draw primitives defined by a sub-array of vertices, with default render states
         /// </summary>
@@ -564,13 +485,11 @@ namespace SFML.Graphics
         /// <param name="start">Index of the first vertex to draw in the array</param>
         /// <param name="count">Number of vertices to draw</param>
         /// <param name="type">Type of primitives to draw</param>
-        ////////////////////////////////////////////////////////////
         public void Draw(Vertex[] vertices, uint start, uint count, PrimitiveType type)
         {
             Draw(vertices, start, count, type, RenderStates.Default);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Draw primitives defined by a sub-array of vertices
         /// </summary>
@@ -579,7 +498,6 @@ namespace SFML.Graphics
         /// <param name="count">Number of vertices to draw</param>
         /// <param name="type">Type of primitives to draw</param>
         /// <param name="states">Render states to use for drawing</param>
-        ////////////////////////////////////////////////////////////
         public void Draw(Vertex[] vertices, uint start, uint count, PrimitiveType type, RenderStates states)
         {
             RenderStates.MarshalData marshaledStates = states.Marshal();
@@ -593,7 +511,6 @@ namespace SFML.Graphics
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Save the current OpenGL render states and matrices.
         /// </summary>
@@ -626,26 +543,22 @@ namespace SFML.Graphics
         /// saved and restored). Take a look at the <seealso cref="ResetGLStates"/>
         /// function if you do so.</para>
         /// </remarks>
-        ////////////////////////////////////////////////////////////
         public void PushGLStates()
         {
             sfRenderWindow_pushGLStates(CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Restore the previously saved OpenGL render states and matrices.
         ///
         /// See the description of <seealso cref="PushGLStates"/> to get a detailed
         /// description of these functions.
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public void PopGLStates()
         {
             sfRenderWindow_popGLStates(CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Reset the internal OpenGL states so that the target is ready for drawing.
         /// </summary>
@@ -667,13 +580,11 @@ namespace SFML.Graphics
         /// glPopAttrib(...);
         /// // OpenGL code here...
         /// </example>
-        ////////////////////////////////////////////////////////////
         public void ResetGLStates()
         {
             sfRenderWindow_resetGLStates(CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Capture the current contents of the window into an image.
         /// </summary>
@@ -687,19 +598,16 @@ namespace SFML.Graphics
         ///    Image img = texture.CopyToImage();
         ///    </code>
         /// </remarks>
-        ////////////////////////////////////////////////////////////
         [Obsolete("Capture is deprecated, please see remarks for preferred method")]
         public Image Capture()
         {
             return new Image(sfRenderWindow_capture(CPointer));
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Provide a string describing the object
         /// </summary>
         /// <returns>String description of the object</returns>
-        ////////////////////////////////////////////////////////////
         public override string ToString()
         {
             return "[RenderWindow]" +
@@ -710,57 +618,48 @@ namespace SFML.Graphics
                    " View(" + GetView() + ")";
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Internal function to get the next event
         /// </summary>
         /// <param name="eventToFill">Variable to fill with the raw pointer to the event structure</param>
         /// <returns>True if there was an event, false otherwise</returns>
-        ////////////////////////////////////////////////////////////
         protected override bool PollEvent(out Event eventToFill)
         {
             return sfRenderWindow_pollEvent(CPointer, out eventToFill);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Internal function to get the next event (blocking)
         /// </summary>
         /// <param name="eventToFill">Variable to fill with the raw pointer to the event structure</param>
         /// <returns>False if any error occured</returns>
-        ////////////////////////////////////////////////////////////
         protected override bool WaitEvent(out Event eventToFill)
         {
             return sfRenderWindow_waitEvent(CPointer, out eventToFill);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Internal function to get the mouse position relative to the window.
         /// This function is protected because it is called by another class,
         /// it is not meant to be called by users.
         /// </summary>
         /// <returns>Relative mouse position</returns>
-        ////////////////////////////////////////////////////////////
         protected override Vector2 InternalGetMousePosition()
         {
             return Vector2i.Convert(sfMouse_getPositionRenderWindow(CPointer));
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Internal function to set the mouse position relative to the window.
         /// This function is protected because it is called by another class,
         /// it is not meant to be called by users.
         /// </summary>
         /// <param name="position">Relative mouse position</param>
-        ////////////////////////////////////////////////////////////
         protected override void InternalSetMousePosition(Vector2 position)
         {
             sfMouse_setPositionRenderWindow(position, CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Internal function to get the touch position relative to the window.
         /// This function is protected because it is called by another class of
@@ -768,18 +667,15 @@ namespace SFML.Graphics
         /// </summary>
         /// <param name="Finger">Finger index</param>
         /// <returns>Relative touch position</returns>
-        ////////////////////////////////////////////////////////////
         protected override Vector2 InternalGetTouchPosition(uint Finger)
         {
             return sfTouch_getPositionRenderWindow(Finger, CPointer);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Handle the destruction of the object
         /// </summary>
         /// <param name="disposing">Is the GC disposing the object, or is it an explicit call ?</param>
-        ////////////////////////////////////////////////////////////
         protected override void Destroy(bool disposing)
         {
             sfRenderWindow_destroy(CPointer);
@@ -790,11 +686,9 @@ namespace SFML.Graphics
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Do common initializations
         /// </summary>
-        ////////////////////////////////////////////////////////////
         private void Initialize()
         {
             myDefaultView = new View(sfRenderWindow_getDefaultView(CPointer));

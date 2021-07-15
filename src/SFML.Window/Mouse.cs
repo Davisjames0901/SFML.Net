@@ -6,18 +6,14 @@ using SFML.System;
 
 namespace SFML.Window
 {
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// Give access to the real-time state of the mouse
     /// </summary>
-    ////////////////////////////////////////////////////////////
     public static class Mouse
     {
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Mouse buttons
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public enum Button
         {
             /// <summary>The left mouse button</summary>
@@ -39,11 +35,9 @@ namespace SFML.Window
             ButtonCount
         };
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Mouse wheels
         /// </summary>
-        ////////////////////////////////////////////////////////////
         public enum Wheel
         {
             /// <summary>The vertical mouse wheel</summary>
@@ -53,32 +47,27 @@ namespace SFML.Window
             HorizontalWheel
         };
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Check if a mouse button is pressed
         /// </summary>
         /// <param name="button">Button to check</param>
         /// <returns>True if the button is pressed, false otherwise</returns>
-        ////////////////////////////////////////////////////////////
         public static bool IsButtonPressed(Button button)
         {
             return sfMouse_isButtonPressed(button);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Get the current position of the mouse
         /// </summary>
         /// This function returns the current position of the mouse
         /// cursor in desktop coordinates.
         /// <returns>Current position of the mouse</returns>
-        ////////////////////////////////////////////////////////////
         public static Vector2 GetPosition()
         {
             return GetPosition(null);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Get the current position of the mouse
         /// </summary>
@@ -86,7 +75,6 @@ namespace SFML.Window
         /// cursor relative to a window.
         /// <param name="relativeTo">Reference window</param>
         /// <returns>Current position of the mouse</returns>
-        ////////////////////////////////////////////////////////////
         public static Vector2 GetPosition(Window relativeTo)
         {
             if (relativeTo != null)
@@ -99,20 +87,17 @@ namespace SFML.Window
             }
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Set the current position of the mouse
         /// </summary>
         /// This function sets the current position of the mouse
         /// cursor in desktop coordinates.
         /// <param name="position">New position of the mouse</param>
-        ////////////////////////////////////////////////////////////
         public static void SetPosition(Vector2 position)
         {
             SetPosition(position, null);
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Set the current position of the mouse
         /// </summary>
@@ -120,7 +105,6 @@ namespace SFML.Window
         /// cursor relative to a window.
         /// <param name="position">New position of the mouse</param>
         /// <param name="relativeTo">Reference window</param>
-        ////////////////////////////////////////////////////////////
         public static void SetPosition(Vector2 position, Window relativeTo)
         {
             if (relativeTo != null)

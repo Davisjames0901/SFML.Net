@@ -3,19 +3,15 @@ using System.Runtime.InteropServices;
 
 namespace SFML.Window
 {
-    ////////////////////////////////////////////////////////////
     /// <summary>
     /// Structure defining the creation settings of OpenGL contexts
     /// </summary>
-    ////////////////////////////////////////////////////////////
     [StructLayout(LayoutKind.Sequential)]
     public struct ContextSettings
     {
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Enumeration of the context attribute flags
         /// </summary>
-        ////////////////////////////////////////////////////////////
         [Flags]
         public enum Attribute
         {
@@ -29,32 +25,27 @@ namespace SFML.Window
             Debug = 1 << 2
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct the settings from depth / stencil bits
         /// </summary>
         /// <param name="depthBits">Depth buffer bits</param>
         /// <param name="stencilBits">Stencil buffer bits</param>
-        ////////////////////////////////////////////////////////////
         public ContextSettings(uint depthBits, uint stencilBits) :
             this(depthBits, stencilBits, 0)
         {
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct the settings from depth / stencil bits and antialiasing level
         /// </summary>
         /// <param name="depthBits">Depth buffer bits</param>
         /// <param name="stencilBits">Stencil buffer bits</param>
         /// <param name="antialiasingLevel">Antialiasing level</param>
-        ////////////////////////////////////////////////////////////
         public ContextSettings(uint depthBits, uint stencilBits, uint antialiasingLevel) :
             this(depthBits, stencilBits, antialiasingLevel, 2, 0, Attribute.Default, false)
         {
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Construct the settings from depth / stencil bits and antialiasing level
         /// </summary>
@@ -65,7 +56,6 @@ namespace SFML.Window
         /// <param name="minorVersion">Minor number of the context version</param>
         /// <param name="attributes">Attribute flags of the context</param>
         /// <param name="sRgbCapable">sRGB capability of the context</param>
-        ////////////////////////////////////////////////////////////
         public ContextSettings(uint depthBits, uint stencilBits, uint antialiasingLevel, uint majorVersion, uint minorVersion, Attribute attributes, bool sRgbCapable)
         {
             DepthBits = depthBits;
@@ -77,12 +67,10 @@ namespace SFML.Window
             _SRgbCapable = sRgbCapable ? 1 : 0;
         }
 
-        ////////////////////////////////////////////////////////////
         /// <summary>
         /// Provide a string describing the object
         /// </summary>
         /// <returns>String description of the object</returns>
-        ////////////////////////////////////////////////////////////
         public override string ToString()
         {
             return "[ContextSettings]" +
