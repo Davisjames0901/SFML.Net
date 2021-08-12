@@ -33,9 +33,9 @@ namespace SFML.Graphics
         public RenderTexture(uint width, uint height, bool depthBuffer) :
             base(sfRenderTexture_create(width, height, depthBuffer))
         {
-            myDefaultView = new View(sfRenderTexture_getDefaultView(CPointer));
+            DefaultView = new View(sfRenderTexture_getDefaultView(CPointer));
             myTexture = new Texture(sfRenderTexture_getTexture(CPointer));
-            GC.SuppressFinalize(myDefaultView);
+            GC.SuppressFinalize(DefaultView);
             GC.SuppressFinalize(myTexture);
         }
 
@@ -49,9 +49,9 @@ namespace SFML.Graphics
         public RenderTexture(uint width, uint height, ContextSettings contextSettings) :
             base(sfRenderTexture_createWithSettings(width, height, ref contextSettings))
         {
-            myDefaultView = new View(sfRenderTexture_getDefaultView(CPointer));
+            DefaultView = new View(sfRenderTexture_getDefaultView(CPointer));
             myTexture = new Texture(sfRenderTexture_getTexture(CPointer));
-            GC.SuppressFinalize(myDefaultView);
+            GC.SuppressFinalize(DefaultView);
             GC.SuppressFinalize(myTexture);
         }
 
@@ -91,27 +91,27 @@ namespace SFML.Graphics
         /// <summary>
         /// Default view of the render texture
         /// </summary>
-        public View DefaultView
-        {
-            get { return new View(myDefaultView); }
-        }
+        public View DefaultView { get; private set; }
+
+        private View _currentView;
 
         /// <summary>
-        /// Return the current active view
+        /// Gets or sets the active view
         /// </summary>
         /// <returns>The current view</returns>
-        public View GetView()
+        public View View
         {
-            return new View(sfRenderTexture_getView(CPointer));
-        }
-
-        /// <summary>
-        /// Change the current active view
-        /// </summary>
-        /// <param name="view">New view</param>
-        public void SetView(View view)
-        {
-            sfRenderTexture_setView(CPointer, view.CPointer);
+            get
+            {
+                if(_currentView == null)
+                    _currentView = new View(sfRenderTexture_getView(CPointer));
+                return _currentView;
+            }
+            set
+            {
+                _currentView = value;
+                sfRenderTexture_setView(CPointer, value.CPointer);
+            }
         }
 
         /// <summary>
@@ -137,7 +137,7 @@ namespace SFML.Graphics
         /// <returns>The converted point, in "world" coordinates</returns>
         public Vector2 MapPixelToCoords(Vector2 point)
         {
-            return MapPixelToCoords(point, GetView());
+            return MapPixelToCoords(point, View);
         }
 
         /// <summary>
@@ -182,7 +182,7 @@ namespace SFML.Graphics
         /// <returns>The converted point, in target coordinates (pixels)</returns>
         public Vector2 MapCoordsToPixel(Vector2 point)
         {
-            return MapCoordsToPixel(point, GetView());
+            return MapCoordsToPixel(point, View);
         }
 
         /// <summary>
@@ -428,7 +428,7 @@ namespace SFML.Graphics
                    " Size(" + Size + ")" +
                    " Texture(" + Texture + ")" +
                    " DefaultView(" + DefaultView + ")" +
-                   " View(" + GetView() + ")";
+                   " View(" + View + ")";
         }
 
         /// <summary>
@@ -446,7 +446,7 @@ namespace SFML.Graphics
 
             if (disposing)
             {
-                myDefaultView.Dispose();
+                DefaultView.Dispose();
                 myTexture.Dispose();
             }
 
@@ -456,7 +456,6 @@ namespace SFML.Graphics
             }
         }
 
-        private View myDefaultView = null;
         private Texture myTexture = null;
 
         #region Imports

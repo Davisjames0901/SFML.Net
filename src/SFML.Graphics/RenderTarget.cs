@@ -22,13 +22,7 @@ namespace SFML.Graphics
         /// Return the current active view
         /// </summary>
         /// <returns>The current view</returns>
-        View GetView();
-
-        /// <summary>
-        /// Change the current active view
-        /// </summary>
-        /// <param name="view">New view</param>
-        void SetView(View view);
+        View View { get; set; }
 
         /// <summary>
         /// Get the viewport of a view applied to this target

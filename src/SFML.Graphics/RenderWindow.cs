@@ -129,6 +129,32 @@ namespace SFML.Graphics
             set { sfRenderWindow_setSize(CPointer, value); }
         }
 
+        private View _currentView;
+
+        /// <summary>
+        /// Gets or sets the active view
+        /// </summary>
+        /// <returns>The current view</returns>
+        public View View
+        {
+            get
+            {
+                if(_currentView == null)
+                    _currentView = new View(sfRenderWindow_getView(CPointer));
+                return _currentView;
+            }
+            set
+            {
+                _currentView = value;
+                sfRenderWindow_setView(CPointer, value.CPointer);
+            }
+        }
+
+        /// <summary>
+        /// Default view of the window
+        /// </summary>
+        public View DefaultView { get; private set; }
+
         /// <summary>
         /// Change the title of the window
         /// </summary>
@@ -309,31 +335,6 @@ namespace SFML.Graphics
             sfRenderWindow_clear(CPointer, color);
         }
 
-        /// <summary>
-        /// Change the current active view
-        /// </summary>
-        /// <param name="view">New view</param>
-        public void SetView(View view)
-        {
-            sfRenderWindow_setView(CPointer, view.CPointer);
-        }
-
-        /// <summary>
-        /// Return the current active view
-        /// </summary>
-        /// <returns>The current view</returns>
-        public View GetView()
-        {
-            return new View(sfRenderWindow_getView(CPointer));
-        }
-
-        /// <summary>
-        /// Default view of the window
-        /// </summary>
-        public View DefaultView
-        {
-            get { return new View(myDefaultView); }
-        }
 
         /// <summary>
         /// Convert a point from target coordinates to world
@@ -348,7 +349,7 @@ namespace SFML.Graphics
         /// <returns>The converted point, in "world" coordinates</returns>
         public Vector2 MapPixelToCoords(Vector2 point)
         {
-            return MapPixelToCoords(point, GetView());
+            return MapPixelToCoords(point, View);
         }
 
         /// <summary>
@@ -410,7 +411,7 @@ namespace SFML.Graphics
         /// <returns>The converted point, in target coordinates (pixels)</returns>
         public Vector2 MapCoordsToPixel(Vector2 point)
         {
-            return MapCoordsToPixel(point, GetView());
+            return MapCoordsToPixel(point, View);
         }
 
         /// <summary>
@@ -615,7 +616,7 @@ namespace SFML.Graphics
                    " Position(" + Position + ")" +
                    " Settings(" + Settings + ")" +
                    " DefaultView(" + DefaultView + ")" +
-                   " View(" + GetView() + ")";
+                   " View(" + View + ")";
         }
 
         /// <summary>
@@ -682,7 +683,7 @@ namespace SFML.Graphics
 
             if (disposing)
             {
-                myDefaultView.Dispose();
+                DefaultView.Dispose();
             }
         }
 
@@ -691,11 +692,9 @@ namespace SFML.Graphics
         /// </summary>
         private void Initialize()
         {
-            myDefaultView = new View(sfRenderWindow_getDefaultView(CPointer));
-            GC.SuppressFinalize(myDefaultView);
+            DefaultView = new View(sfRenderWindow_getDefaultView(CPointer));
+            GC.SuppressFinalize(DefaultView);
         }
-
-        private View myDefaultView = null;
 
         #region Imports
         [DllImport(CSFML.graphics, CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
